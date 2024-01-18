@@ -1,7 +1,6 @@
-# ChatterBox
-COSC 310 Project 
+# COSC 310 Project 
 
-# Team Error 404
+# Team Name: Error 404
 
 ## Team Members
 - Abdul Wahhab
