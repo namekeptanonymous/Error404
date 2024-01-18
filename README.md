@@ -33,6 +33,9 @@ The Error 404 team is committed to fostering a cooperative and productive atmosp
 ### Lab Section Preferences
 - Our preferred lab sections are (in order of preference) L06, L03, and L09.
 
+Link to the google document
+https://docs.google.com/document/d/1AyMeJwwUZeAwoGpBZNSOshI5_QVa-fb0eNSxW8xPxHw/edit?usp=sharing
+
 ---
 
 *This document represents our team agreement and will guide our collaboration and work ethic throughout the project.*
