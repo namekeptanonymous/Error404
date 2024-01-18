@@ -1,5 +1,5 @@
 # ChatterBox
-COSC 310 Project - Group members are: [TO BE ADDED]
+COSC 310 Project 
 
 # Team Error 404
 
