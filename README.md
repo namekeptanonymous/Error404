@@ -28,10 +28,10 @@ The Error 404 team is committed to fostering a cooperative and productive atmosp
 - Before committing changes to Git, we encourage showing the output to other team members for a preliminary review.
 
 ### Project Preferences
-- Our preferred projects are Discord Clone, Event Ticketing, and E-learning.
+- Our preferred projects (in order of preference) are Discord Clone, Event Ticketing, and E-learning .
 
 ### Lab Section Preferences
-- Our preferred lab sections are L06, L03, and L09.
+- Our preferred lab sections are (in order of preference) L06, L03, and L09.
 
 ---
 
