@@ -1,0 +1,41 @@
+Use cases:
+
+- Create an account
+    - registration, log-in
+    - active game status
+    - account settings
+    - user profile display (banner, icon, description, etc.)
+- Notifications
+- Friend functionality
+    - add friend
+    - remove friend
+- Direct messaging a user
+    - custom emojis (could be re-implemented for servers)
+    - images
+    - file sharing
+    - text formatting
+    - reacting to messages
+    - searching for messages
+- Create group chats and servers
+    - add & remove members
+    - being able to organize channels
+    - roles management
+    - bot integration
+    - server invites
+    - being able to ban, mute, kick people
+    - searching for messages
+
+Things to consider later:
+- Discoverable Servers (the bottom-left button in Discord)
+- Calls (being able to mute, deafen)\
+
+
+
+Use Case Description for a Discord Clone Application
+In the Discord clone application, individuals start by registering for a new account or logging into an existing one. Once logged in, they are presented with a customisable profile to add personal touches like a banner, icon, and description and adjust basic settings such as themes and text size. The application's user interface is navigated through a bottom bar or menu, allowing easy access to various sections like servers and direct messages. Users can join existing group servers or create new ones, organising and participating in different channels for communication and collaboration. The application also lets users display their active game status, letting friends know what they're playing.
+
+In terms of social interaction, users can manage their friend list by sending, receiving, and responding to friend requests. Once friends are added, users can engage in direct messaging, where they can share text messages, custom emojis, images, and files. This feature is enhanced with text formatting, message reactions, history search, and the option to delete messages.
+
+Group chats and servers are integral to the application, offering a space for more significant community interactions. Here, users can chat, share files, assign roles, integrate bots, and manage server-specific features such as user invites and moderation tools like banning, muting, or kicking members. Real-time notifications inform users about direct messages, server alerts, and friend requests, ensuring they stay connected and engaged.
+
+Lastly, if the platform offers premium features, users can navigate to their account settings to make purchases or subscribe to these additional services, enriching their experience. This use case encapsulates the comprehensive functionalities of a Discord clone, highlighting how users interact with the system from the point of entry to active and continuous engagement.
