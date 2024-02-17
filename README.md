@@ -3,7 +3,7 @@
 ## Team Name: Error 404
 
 ### Team Members
-- Abdul Wahab
+- Abdul Faiz
 - Aaditya Golash
 - Ariq Muldi
 - Kenneth Abadi
