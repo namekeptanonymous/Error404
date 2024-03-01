@@ -35,6 +35,9 @@ The Error 404 team is committed to fostering a cooperative and productive atmosp
 #### Lab Section Preferences
 - Our preferred lab sections are (in order of preference) L06, L03, and L09.
 
+#### Website Link
+The web-app can be accessed [here!](https://namekeptanonymous.github.io/Error404/)
+
 #### Additional Resources
 - [Google Document Link](https://docs.google.com/document/d/1AyMeJwwUZeAwoGpBZNSOshI5_QVa-fb0eNSxW8xPxHw/edit?usp=sharing)
 
