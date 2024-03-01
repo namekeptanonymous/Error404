@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/login.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ChatterBox</title>
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-expand-md">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html">ChatterBox</a>
+            <div class="navbar-nav text-center">
+                <a class="nav-link" href="../../index.html">Home</a>
+                <a class="nav-link disabled" target="_blank" rel="noopener noreferrer" href="#top">Login | Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="main">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-md-5 align-self-center">
+                    <form action="http://www.randyconnolly.com/tests/process.php" method="get" id="loginreg-form">
+                        <fieldset>
+                            <div class="card login-card">
+                                <div class="card-body">
+                                    <h3 class="card-title">Login | Register</h3><br>
+                                    <label for="email">Email:</label>
+                                    <input type="text" id="email" name="email" placeholder="example@gmail.com"><br><br>
+                        
+                                    <label for="passw">Password:</label>
+                                    <input type="password" id="passw" name="passw"><br><br>
+                        
+                                    <input type="submit" value="Submit" class="btn btn-success" id="submit-btn">
+                                </div>
+                            </div>
+                        </fieldset>
+                      </form>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <footer class="footer text-center py-3">
+        <div class="container-fluid text-center" data-bs-theme="dark">
+            <div class="row mt-3">
+                <span class="text-muted">Work done by the Error404 team. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        var email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var email = document.getElementById("email");
+        var passw = document.getElementById("passw");
+        var submit_btn = document.getElementById("submit-btn");
+        submit_btn.disabled = true;
+        var email_flag = false;
+        var passw_flag = false;
+        email.addEventListener("blur", function(e) {
+            if (!email_pattern.test(email.value) && !(email.value == null || email.value == "")) {
+                email.style.border = "3px solid red";
+                email.style.borderRadius = "0.25rem";
+                email_flag = false;
+                submit_btn.disabled = true;
+            } else {
+                email.style = "";
+                email_flag = true;
+                if (email_flag && passw_flag) {
+                    submit_btn.disabled = false;
+                }
+            }
+        });
+        passw.addEventListener("change", function(e) {
+            if (passw.value != null && passw.value != "") {
+                passw.style = "";
+                passw_flag = true;
+                if (email_flag && passw_flag) {
+                    submit_btn.disabled = false;
+                }
+            } else {
+                passw.style.border = "3px solid red";
+                passw.style.borderRadius = "0.25rem";
+                passw_flag = false;
+                submit_btn.disabled = true;
+            }
+        });
+
+        document.getElementById("loginreg-form").onsubmit = function(e){
+            if (email.value == null || email.value == "") {
+                e.preventDefault();
+                alert("Please enter an e-mail address.")
+            } else if (!email_pattern.test(email.value)) {
+                e.preventDefault();
+                alert("Please enter a valid e-mail address.")
+            } else if (passw.value == null || passw.value == "") {
+                e.preventDefault();
+                alert("Please enter a password.")
+            }
+        }
+    </script>
+</body>
+</html>
