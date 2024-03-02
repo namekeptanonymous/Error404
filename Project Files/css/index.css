@@ -9,6 +9,16 @@ body {
     scrollbar-width: none;
 }
 
+@media (prefers-color-scheme: dark) {
+    body {
+      background-color: #1A1C1D;
+      color: white;
+    }
+    #main {
+        color: white; /* To be removed once placeholder text is removed from the Index page.*/
+    }
+}
+
 .btn {
     border-radius: 1.5rem;
 }
@@ -24,9 +34,12 @@ body {
 
 .navbar {
     font-weight: 650;
-    background-color: white;
 }
 
 .brand-image {
     margin-right: 0.1em;
+}
+
+.navbar-brand {
+    margin-left: 0.5rem;
 }

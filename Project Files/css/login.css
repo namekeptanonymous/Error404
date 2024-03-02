@@ -9,8 +9,17 @@ body {
     scrollbar-width: none;
 }
 
+@media (prefers-color-scheme: dark) {
+    body {
+      background-color: #1A1C1D;
+    }
+    .login-card {
+        border-color: transparent;
+    }
+}
+
 .btn {
-    border-radius: 1.5rem;
+    border-radius: 1.3rem;
 }
 
 .footer {
@@ -24,11 +33,14 @@ body {
 
 .navbar {
     font-weight: 650;
-    background-color: white;
 }
 
 .brand-image {
     margin-right: 0.1em;
+}
+
+.navbar-brand {
+    margin-left: 0.5rem;
 }
 
 .login-card {
@@ -42,10 +54,23 @@ body {
 }
 
 .login-card input {
-    margin: 0.5em 1em 0.5em 1em;
+    margin: 0.5em 1em 0.5em 0.5em;
 }
 
-#submit-btn {
-    width: 6em;
+label {
+    width: 5em;
+    text-align: right;
+}
+
+#email, #passw {
+    width: 55%;
+}
+
+.card-body>.btn {
     margin-bottom: 0em;
+    margin-right: 0em;
+}
+
+.modal-content {
+    border-radius: 1.3rem;
 }
