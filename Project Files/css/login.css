@@ -62,7 +62,7 @@ label {
     text-align: right;
 }
 
-#email, #passw {
+#username, #passw, #username-forgot, #passw-forgot {
     width: 55%;
 }
 
