@@ -1,0 +1,112 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #1A1C1D;
+    color: #ccc;
+    align-items: flex-end; /* Align sidebar to the right */
+}
+
+/* Adjust container to be a flex container */
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: space-between; /* Align content and sidebar */
+    padding-top: 60px;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.user-list-section {
+    width: 300px; /* Sidebar width */
+    background-color: #2C2F33;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0; /* Adjust top and bottom margin as needed */
+    overflow-y: auto;
+    flex-grow: 1; /* Allows it to grow and fill the vertical space */
+}
+
+.footer {
+    background-color: #2d2d2d;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+
+
+
+.user-list-section h4, .user-list h5 {
+    color: #ffffff; /* Ensures text visibility */
+}
+
+.user-list {
+    list-style-type: none; /* Removes default list styling */
+    padding: 0;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profile-pic {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    border-radius: 50%; /* Creates round profile pictures */
+    margin-right: 10px;
+}
+
+.user-name {
+    flex-grow: 1;
+    color: white; /* Ensures text visibility */
+}
+
+.status.online, .status.offline {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.status.online { background-color: #00ff00; } /* Green for online */
+.status.offline { background-color: #ff0000; } /* Red for offline */
+
+
+
+/* Keep your existing footer and navbar styles as they are */
+/* Footer styling for consistency */
+.footer {
+    background-color: #2d2d2d;
+    box-shadow: 0 0 30pt 2pt #121212;
+    color: white;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Navbar styling for consistency */
+.navbar {
+    background-color: #2d2d2d;
+    font-weight: 650;
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+}
