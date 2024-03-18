@@ -1,0 +1,47 @@
+.user-list-section {
+    width: 300px;
+    background-color: #2C2F33;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.user-list-section h4, .user-list h5 {
+    color: #ffffff;
+}
+
+.user-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-name {
+    flex-grow: 1;
+    color: white;
+}
+
+.status.online, .status.offline {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.status.online { background-color: #00ff00; }
+.status.offline { background-color: #ff0000; }

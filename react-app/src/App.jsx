@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react'; // Ensure React and useState are imported
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
+import ChannelMembers from './components/ChannelMembers'; // Import the ChannelMembers component
 
 function App() {
-  const [count, setCount] = useState(0)
+  // eslint-disable-next-line no-undef
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -28,8 +30,10 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      {/* Here is where we add the ChannelMembers component to be rendered */}
+      <ChannelMembers />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
