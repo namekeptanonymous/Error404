@@ -1,0 +1,71 @@
+.sidebar {
+    width: 240px;
+    background-color: #2f3136;
+    color: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+  .channel-members-heading {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .user-list-title {
+    font-size: 14px;
+    color: #ffffff;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .user-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px; /* Adjust the space between each user item */
+    gap: 10px; /* Adds space between items inside the flex container */
+  }
+  
+  .profile-pic {
+    width: 32px; /* Slightly reduce the size of profile pictures */
+    height: 32px;
+    border-radius: 50%;
+    /* margin-right: 10px; Removed to use gap property in .user for spacing */
+  }
+  
+  .user-name {
+    flex-grow: 1;
+    color: #ffffff;
+    font-size: 14px; /* Adjust font size for user names */
+    /* Added padding for additional space around the text, adjust as needed */
+    padding-left: 10px;
+  }
+  
+  .status {
+    width: 8px; /* Adjust size of status indicator */
+    height: 8px;
+    border-radius: 50%;
+    /* margin-left: 10px; Adjust or remove depending on gap usage */
+  }
+  
+  .status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: 5px;
+  }
+  
+  .status.online {
+    background-color: #43b581;
+  }
+  
+  .status.offline {
+    background-color: #e82121;
+  }
+  
