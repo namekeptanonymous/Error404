@@ -28,27 +28,37 @@
   .user {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 8px; /* Adjust the space between each user item */
+    gap: 10px; /* Adds space between items inside the flex container */
   }
   
   .profile-pic {
-    width: 32px;
+    width: 32px; /* Slightly reduce the size of profile pictures */
     height: 32px;
     border-radius: 50%;
-    margin-right: 10px;
+    /* margin-right: 10px; Removed to use gap property in .user for spacing */
   }
   
   .user-name {
     flex-grow: 1;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 14px; /* Adjust font size for user names */
+    /* Added padding for additional space around the text, adjust as needed */
+    padding-left: 10px;
+  }
+  
+  .status {
+    width: 8px; /* Adjust size of status indicator */
+    height: 8px;
+    border-radius: 50%;
+    /* margin-left: 10px; Adjust or remove depending on gap usage */
   }
   
   .status {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    margin-left: 10px;
+    margin-left: 5px;
   }
   
   .status.online {
