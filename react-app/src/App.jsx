@@ -1,8 +1,9 @@
-import { useState } from 'react'; // Ensure React and useState are imported
+/* eslint-disable no-unused-vars */
+import React,{ useState } from 'react'; // Ensure React and useState are imported
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
-import './App.css';
-import ChannelMembers from './ChannelMembers.jsx'; // Import the ChannelMembers component
+import styles from './App.css'; // Adjusted import for CSS module
+import ChannelMembers from './ChannelMembers'; // Assuming ChannelMembers is in the same directory
 
 function App() {
   // eslint-disable-next-line no-undef
