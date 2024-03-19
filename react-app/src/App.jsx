@@ -2,7 +2,7 @@ import { useState } from 'react'; // Ensure React and useState are imported
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import ChannelMembers from './components/ChannelMembers'; // Import the ChannelMembers component
+import ChannelMembers from './ChannelMembers.jsx'; // Import the ChannelMembers component
 
 function App() {
   // eslint-disable-next-line no-undef

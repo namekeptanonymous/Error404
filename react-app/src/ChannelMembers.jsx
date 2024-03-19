@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-
+import PropTypes from 'prop-types';
 import styles from './ChannelMembers.module.css';
 
 const ChannelMembers = ({ admins, members }) => {
@@ -31,5 +30,23 @@ const ChannelMembers = ({ admins, members }) => {
     </div>
   );
 };
+
+ChannelMembers.propTypes = {
+    admins: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        status: PropTypes.string.isRequired,
+        profilePic: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    members: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        status: PropTypes.string.isRequired,
+        profilePic: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  };
+  
 
 export default ChannelMembers;

@@ -2,7 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ChannelMembers from './ChannelMembers'; // Adjust the import path as necessary
+import ChannelMembers from './ChannelMembers.jsx'; // Adjust the import path as necessary
 
 describe('ChannelMembers Component', () => {
   it('renders admin and member information correctly', () => {
