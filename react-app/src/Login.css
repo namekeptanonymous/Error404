@@ -1,0 +1,36 @@
+/* App.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type="text"],
+input[type="password"] {
+  width: 55%;
+}
+
+.card {
+  background-color: #2d2d2d;
+  color: white;
+  margin: 2em 2em 2em 2em;
+  border-radius: 2rem;
+  border-width: 4px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.btn {
+  border-radius: 1.3rem;
+}
+
+.footer {
+  background-color: #2d2d2d;
+  box-shadow: 0 0 30pt 2pt #121212;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.modal-content {
+  border-radius: 1.3rem;
+}
