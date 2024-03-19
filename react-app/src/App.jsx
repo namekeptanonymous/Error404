@@ -30,9 +30,8 @@ function App() {
       <div className="sidebar">
         <ChannelMembers admins={admins} members={members} />
       </div>
-      <div className="Chat">
+    
       <Chat />
-      </div>
       
     </div>
   );
