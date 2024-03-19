@@ -1,47 +1,61 @@
-.user-list-section {
-    width: 300px;
-    background-color: #2C2F33;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 20px 0;
-    overflow-y: auto;
-    flex-grow: 1;
-}
-
-.user-list-section h4, .user-list h5 {
+.sidebar {
+    width: 240px;
+    background-color: #2f3136;
     color: #ffffff;
-}
-
-.user-list {
-    list-style-type: none;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+  .channel-members-heading {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .user-list-title {
+    font-size: 14px;
+    color: #ffffff;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .user-list {
+    list-style: none;
     padding: 0;
-}
-
-.user {
+  }
+  
+  .user {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-}
-
-.profile-pic {
-    width: 40px;
-    height: 40px;
+    margin-bottom: 8px;
+  }
+  
+  .profile-pic {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     margin-right: 10px;
-}
-
-.user-name {
+  }
+  
+  .user-name {
     flex-grow: 1;
-    color: white;
-}
-
-.status.online, .status.offline {
-    width: 10px;
-    height: 10px;
+    color: #ffffff;
+    font-size: 14px;
+  }
+  
+  .status {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     margin-left: 10px;
-    display: inline-block;
-}
-
-.status.online { background-color: #00ff00; }
-.status.offline { background-color: #ff0000; }
+  }
+  
+  .status.online {
+    background-color: #43b581;
+  }
+  
+  .status.offline {
+    background-color: #e82121;
+  }
+  
