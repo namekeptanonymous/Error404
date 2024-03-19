@@ -1,10 +1,9 @@
 /* App.css */
 .App {
-  width: 100%;
   display: flex;
-  justify-content: flex-end; /* Aligns the sidebar to the right */
-  height: 100vh; /* Full height of the viewport */
-  background-color: #36393f; /* Discord dark theme background */
+  justify-content: flex-start; /* Adjust to flex-start to align children to the left */
+  height: 100vh;
+  background-color: #36393f;
 }
 
 .sidebar {
