@@ -4,7 +4,7 @@ import './message.css'
 export const Message = () => {
   return (
     <div className="message">
-        <img src="" alt="Avatar" />
+        <img src="../assets/placeholder_profile_picture.png" alt="Avatar" />
         <div className="messageinfo">
             <h4> Chase8255
                 <span className="timestamp">Timestamp</span>
