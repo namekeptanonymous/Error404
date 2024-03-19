@@ -1,41 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
+import ChannelMembers from './ChannelMembers';
+import FriendsList from './Friendslist'; // Import the FriendsList component
+//import Footer from './Footer'; 
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Dummy data for demonstration purposes
+  const admins = useState([
+    {
+      name: 'Admin1',
+      status: 'online',
+      profilePic: '/path/to/admin1.jpg', // Ensure the path is correct
+    },
+  ])[0];
+
+  const members = useState([
+    {
+      name: 'Member1',
+      status: 'offline',
+      profilePic: '/path/to/member1.jpg', // Ensure the path is correct
+    },
+  ])[0];
+
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
-  /*
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <FriendsList />
+      <div className="sidebar">
+        <ChannelMembers admins={admins} members={members} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-  */
+     
+    </div>
+  );
 }
 
-export default App
+export default App;

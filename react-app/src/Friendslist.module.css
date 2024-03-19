@@ -1,0 +1,57 @@
+/* FriendsList.module.css */
+.sidebar-friends {
+    background-color: #2C2F33; /* Dark theme sidebar color */
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    right: 0; /* Align to the right side */
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Header styles for each section (e.g., PENDING, DIRECT MESSAGES) */
+  .friends-section-header {
+    color: #b9bbbe;
+    padding: 0 20px;
+    margin-top: 20px;
+  }
+  
+  .friends-list, .pending-requests, .active-now {
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .friend-item, .pending-request-item, .active-now-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 3px;
+    background-color: #36393F;
+    margin-bottom: 8px;
+    color: white;
+  }
+  
+  .friend-item:hover, .pending-request-item:hover, .active-now-item:hover {
+    background-color: #42454A;
+  }
+  
+  .friend-profile-pic, .pending-request-pic, .active-now-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .friend-status, .active-now-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: auto; /* Push to the right */
+  }
+  
+  .status-online { background-color: #00ff00; }
+  .status-offline { background-color: #ff0000; }
+  
