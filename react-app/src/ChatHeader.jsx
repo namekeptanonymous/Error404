@@ -15,11 +15,11 @@ export const ChatHeader = () => {
     </div>
 
     <div className="chatheaderright">
-        <img src="" alt="Members List" />
+        <img src="../../Project Files/images/member.svg" alt="Members List" />
 
         <div className="chatheadersearch">
             <input placeholder='Search' />
-            <img src="" alt="Search icon" />
+            <img src="../../Project Files/images/search.svg" alt="Search icon" />
         </div>
 
         </div>

@@ -9,7 +9,7 @@ export const Message = () => {
             <h4> Chase8255
                 <span className="timestamp">Timestamp</span>
             </h4>
-
+            
             <p>This is a message</p>
         </div>
     </div>
