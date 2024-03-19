@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState } from 'react';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, child, get } from "firebase/database";
