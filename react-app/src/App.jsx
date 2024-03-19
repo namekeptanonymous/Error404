@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import ChannelMembers from './ChannelMembers';
-import FriendsList from './Friendslist';
-import Chat from './Chat' // Import the FriendsList component
+import FriendsList from './Friendslist'; 
+import Chat from './Chat'
 //import Footer from './Footer'; 
 
 function App() {
@@ -26,11 +26,16 @@ function App() {
   return (
     <div className="App">
       <FriendsList />
+      
       <div className="sidebar">
         <ChannelMembers admins={admins} members={members} />
       </div>
+      <div className="Chat">
       <Chat />
-     
+      </div>
+      
     </div>
   );
 }
+
+export default App;

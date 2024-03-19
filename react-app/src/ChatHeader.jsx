@@ -27,3 +27,5 @@ export const ChatHeader = () => {
   )
 
 }
+
+export default ChatHeader;
