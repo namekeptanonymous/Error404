@@ -16,14 +16,14 @@ export const Chat = () => {
     
     
         <div className="chatinput">
-            <img src="../../Project Files/images/files.svg" alt="Files" />
+            <img src="../assets/file.svg" alt="Files" />
             <form>
                 <input placeholder={'Message #TestChannel'} />
                 <button className='chatinputbutton' type='submit'> Send Message</button>
             </form>
 
             <div className="chatinputicons">
-                <img src="../../Project Files/images/emoji.svg" alt="Emoji" />
+                <img src="../assets/emoji.svg" alt="Emoji" />
             </div>
         </div>
     </div>

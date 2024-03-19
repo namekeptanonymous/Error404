@@ -3,17 +3,17 @@ import styles from './Friendslist.module.css'; // Adjust the import path as need
 
 // Dummy data for demonstration
 const friends = [
-  { name: "John Doe", status: "online", profilePic: "/path/to/johndoe.jpg" },
-  { name: "Jane Smith", status: "offline", profilePic: "/path/to/janesmith.jpg" },
+  { name: "John Doe", status: "online", profilePic: "../assets/placeholder_profile_picture.png" },
+  { name: "Jane Smith", status: "offline", profilePic: "../assets/placeholder_profile_picture.png" },
 ];
 
 const pendingRequests = [
-  { name: "Alice Johnson", profilePic: "/path/to/alicejohnson.jpg" },
-  { name: "Bob Brown", profilePic: "/path/to/bobbrown.jpg" },
+  { name: "Alice Johnson", profilePic: "../assets/placeholder_profile_picture.png" },
+  { name: "Bob Brown", profilePic: "../assets/placeholder_profile_picture.png" },
 ];
 
 const activeNow = [
-  { name: "Charlie Davis", profilePic: "/path/to/charliedavis.jpg" },
+  { name: "Charlie Davis", profilePic: "../assets/placeholder_profile_picture.png" },
 ];
 
 const FriendsList = () => {
