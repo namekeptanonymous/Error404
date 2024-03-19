@@ -26,6 +26,7 @@ function App() {
   return (
     <div className="App">
       <FriendsList />
+
       
       <div className="sidebar">
         <ChannelMembers admins={admins} members={members} />
@@ -33,6 +34,8 @@ function App() {
     
       <Chat />
       
+
+
     </div>
   );
 }
