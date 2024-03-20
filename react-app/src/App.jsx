@@ -1,8 +1,7 @@
-//import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import React, { useState } from 'react';
-
-//import './App.css';
-import Hero from "./Hero"; // Ensure this path is correct
+import './App.css';
+import Hero from "./components/Hero"; // Ensure this path is correct
 
 import ChannelMembers from './ChannelMembers';
 import FriendsList from './Friendslist'; 
@@ -11,6 +10,16 @@ import Chat from './Chat';
 //import Footer from './Footer'; 
 
 export default function App() {
+
+  return (
+    <Router>
+      <Routes>
+        <Route path = "/" element = {<Hero />}
+        ></Route>
+      
+      </Routes>
+    </Router>
+  );
 
   /*
   return (
@@ -34,9 +43,8 @@ export default function App() {
   */
   
 
-  
+  /*
   // Dummy data for demonstration purposes
-  
   const admins = useState([
     {
       name: 'Admin1',
@@ -68,6 +76,7 @@ export default function App() {
 
     </div>
   );
+  */
   
   
 }
