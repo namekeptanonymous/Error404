@@ -1,12 +1,42 @@
+//import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import React, { useState } from 'react';
-import './App.css';
+
+//import './App.css';
+import Hero from "./Hero"; // Ensure this path is correct
+
 import ChannelMembers from './ChannelMembers';
 import FriendsList from './Friendslist'; 
-import Chat from './Chat'
+import Chat from './Chat';
+
 //import Footer from './Footer'; 
 
-function App() {
+export default function App() {
+
+  /*
+  return (
+    <Hero />
+  );
+  */
+
+
+  /*
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          
+          <Hero />
+        </Route>
+        
+      </Switch>
+    </Router>
+  );
+  */
+  
+
+  
   // Dummy data for demonstration purposes
+  
   const admins = useState([
     {
       name: 'Admin1',
@@ -38,6 +68,8 @@ function App() {
 
     </div>
   );
+  
+  
 }
 
-export default App;
+//export default App;
