@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 function Hero() {
-    return <div>hello world!</div>;
-}
+    return (
+        <div><h1>hello world!</h1></div>
+  );
+};
 
 export default Hero;
