@@ -1,4 +1,6 @@
+import { Bars3Icon } from '@heroicons/react/24/outline';
 import chatterboxImage from '../images/chatterbox.png';
+
 
 function Header() {
     // all img src will have the links to discord icons
@@ -18,6 +20,8 @@ function Header() {
                 <button className="bg-white p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_blurple transition duration-200 ease-in-out whitespace-nowrap font-medium">
                 Login
                 </button>
+                <Bars3Icon className="h-9 text-white cursor-pointer lg:hidden"/>
+            
 
             </div>
 
