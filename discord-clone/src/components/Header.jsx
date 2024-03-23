@@ -8,7 +8,7 @@ function Header() {
     return (
         <header className="flex items-center justify-between py-4 px-6 bg-discord_blue">
             <a href="/">
-                <img src={chatterboxImage} className="w-40 h-12 object-contain" alt="" />
+                <img src={chatterboxImage} className="w-12 h-12 object-contain" alt="" />
             </a>
             <div className="hidden lg:flex  space-x-6 text-white">
                 <a className="link"> Download </a>
