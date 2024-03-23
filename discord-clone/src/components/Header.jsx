@@ -1,9 +1,10 @@
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import chatterboxImage from '../images/chatterbox.png';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase'
 
 function Header() {
-    // all img src will have the links to discord icons
+    const [user] = useAuthState(auth)
     return (
         <header className="flex items-center justify-between py-4 px-6 bg-discord_blue">
             <a href="/">
