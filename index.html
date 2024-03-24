@@ -1,76 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head lang="en" data-bs-theme="auto">
-   <meta charset="utf-8">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-   <link rel="stylesheet" href="Project Files/css/index.css" />
-   <link rel="stylesheet" href="Project Files/css/friendlist.css" />
-   <link rel="icon" type="image/x-icon" href="Project Files/images/chatterbox.png">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>ChatterBox</title>
-</head>
-<body>
-    <script>
-        const htmlElement = document.querySelector("html");
-        if (htmlElement.getAttribute("data-bs-theme") === 'auto') {
-            function updateTheme() {
-                document.querySelector("html").setAttribute("data-bs-theme", window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-            }
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
-            updateTheme();
-        }
-    </script>
-    
-    <nav class="navbar sticky-top navbar-expand-md" id="topNavbar">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">ChatterBox</a>
-            <div class="navbar-nav text-center">
-                <a class="nav-link" href="#top">Home</a>
-                <a class="nav-link" href="Project Files/pages/login.html">Login</a>
-                <a class="nav-link" href="Project Files/pages/register.html">Register</a>
-            </div>
-        </div>
-    </nav>
-    <div class="sidebar-friends">
-        <div class="friends-list">
-            <h4>Friends</h4>
-            <ul>
-                <!-- Example Friend Item -->
-                <li class="friend-item">
-                    <img src="path_to_profile_pic.jpg" class="friend-profile-pic" alt="Friend Name">
-                    <span class="friend-name">Friend Name</span>
-                    <span class="friend-status status-online"></span> <!-- or status-offline -->
-                </li>
-                <!-- Add more friend items here -->
-            </ul>
-        </div>
-    </div>
-    <div id="main">
-        <!-- this is placeholder content! remove later -->
-        <br><br><br><br>Placeholder text.
-        <!-- placeholder content over -->
-    </div>
-
-    <footer class="footer text-center py-3">
-        <div class="container-fluid text-center" data-bs-theme="dark">
-            <div class="row mt-3">
-                <span class="text-muted">Work done by the Error404 team. All rights reserved.</span>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        function updateNavTheme() {
-            var nav = document.getElementById("topNavbar");
-            if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                nav.classList.add('navbar-dark');
-            } else {
-                nav.classList.remove('navbar-dark');
-            }
-        }
-        updateNavTheme();
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateNavTheme);
-    </script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="src/images/chatterbox.png">
+    <title>ChatterBox</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
