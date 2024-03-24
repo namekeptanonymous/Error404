@@ -12,9 +12,20 @@ export default {
           discord_blurple: "#7289da",
           discord_purple: "#5865f2",
           discord_green: "#3ba55c",
+          discord_serverBg: "#36393f",
+          discord_serversBg: "#202225",
         },
+        height:{ 
+          "83vh": "83vh"
+        },
+        borderRadius:["hover", "focus"],
+
     },
-  },
-  plugins: [],
-}
+     variants:{
+      extend:{},
+     }, 
+     plugins:[],
+     }
+  }
+
 
