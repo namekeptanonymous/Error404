@@ -1,11 +1,11 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import { Navigate } from 'react-router-dom';
 import ServerIcon from './ServerIcon';
-import PlusIcon from './PlusIcon'; // Make sure to import PlusIcon if it's a separate component
-import {ChevronDownIcon,PlusIcon} from "@heroicons/react/outline";
-import{useCollection } from "react-firebase-hooks/firestore";
+import {ChevronDownIcon,PlusIcon} from "@heroicons/react/24/outline";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection } from 'firebase/firestore';
 
 function Home() {
   const [user] = useAuthState(auth);
@@ -15,7 +15,7 @@ function Home() {
     return <Navigate to="/" replace />;
   }
 
-  const[channels]=useCollection(db.collection("channels"));
+  const[channels]=useCollection(collection(db, "channels"));
 
   const handleAddChannel =() =>{
     const channelName =prompt("Enter a new channel name");
