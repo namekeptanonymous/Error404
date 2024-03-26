@@ -10,6 +10,7 @@ import {ChevronDownIcon,PlusIcon, MicrophoneIcon, PhoneIcon, CogIcon} from "@her
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, doc, setDoc } from 'firebase/firestore';
 import Channel from './Channel.jsx'
+import Chat from './Chat.jsx'
 
 function Home() {
   const navigate = useNavigate(); //
@@ -110,7 +111,10 @@ function Home() {
             </div>
           </div>
         </div>
-
+          
+        <div className="bg-discord_chatBg flex-grow">
+          <Chat />
+        </div>
                    
       </div>
     </>
