@@ -1,20 +1,40 @@
 import React from 'react';
+import { useEffect } from 'react'; //
+import chatterboxImage from '../images/chatterbox.png';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
-import { Navigate } from 'react-router-dom';
+//import { Navigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; //
 import ServerIcon from './ServerIcon';
-import {ChevronDownIcon,PlusIcon} from "@heroicons/react/24/outline";
+import {ChevronDownIcon,PlusIcon, MicrophoneIcon, PhoneIcon, CogIcon} from "@heroicons/react/24/outline";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, doc, setDoc } from 'firebase/firestore';
 import Channel from './Channel.jsx'
 
 function Home() {
+  const navigate = useNavigate(); //
   const [user] = useAuthState(auth);
 
+  //
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+  //
+
   // Check if user is not authenticated and navigate to the root ("/") if needed
-  if (!user) {
-    return <Navigate to="/" replace />;
-  }
+  //if (!user) { //
+    //return <Navigate to="/" replace />; //
+  //} //
+
+  //
+  const handleLogout = () => {
+    auth.signOut()
+      .then(() => navigate("/")) // Redirect after sign out
+      .catch((error) => console.error("Logout error:", error)); // Handle errors
+  };
+  //
 
   const[channels]=useCollection(collection(db, "channels"));
 
@@ -62,7 +82,36 @@ function Home() {
                 
               </div>
             </div>
+            
+            <div className = "bg-discord_userSectionBg p-2 flex justify-between items-center space-x-8"> 
+              {/* src = {user?.photoURL} */}
+              <div className = "flex items-center space-x-1"> 
+              <img src={chatterboxImage} alt="" className="h-10 rounded-full" onClick={handleLogout}/> 
+              <h4 className = "text-white text-xs font-medium">
+                {user?.displayName}
+                <span className="text-discord_userSectionText block">#{user?.uid.substring(0,4)}</span>
+              </h4>
+              </div>
+            
+            <div className = "text-gray-400 flex items-center"> 
+
+              <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
+                <MicrophoneIcon className = "h-5 icon"/>
+              </div>
+
+              <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
+                <PhoneIcon className = "h-5 icon"/>
+              </div>
+
+              <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
+                <CogIcon className = "h-5 icon"/>
+              </div>
+
+            </div>
           </div>
+        </div>
+
+                   
       </div>
     </>
   );
