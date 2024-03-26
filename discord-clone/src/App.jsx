@@ -22,11 +22,10 @@ function App() {
           <Route exact path="/channels" element= {
             <Home />
           }>
-          </Route>
-
+          
           <Route exact path="/channels:id" element= {
             <Home />
-          }>
+          }/>
           </Route>
         </Routes>
       </Router>

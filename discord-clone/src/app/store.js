@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
-import channelReducer from "../features//channelSlice"
+import channelReducer from "../features/channelSlice"
 
 
 

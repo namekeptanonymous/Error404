@@ -59,6 +59,7 @@ function Home() {
                     id={doc.id}
                     channelName={doc.data().channelName} />
                 ))}
+                
               </div>
             </div>
           </div>

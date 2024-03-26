@@ -21,7 +21,6 @@ export const {setChannelInfo} = channelSlice.actions;
 
 export const selectChannelId = (state) => state.channel.channelId;
 
-
 export const selectChannelName = (state) => state.channel.channelName;
 
 export default channelSlice.reducer;
