@@ -19,14 +19,20 @@ function App() {
           }>
         </Route>
 
-          <Route exact path="/channels" element= {
+        <Route exact path="/channels" element= {
+            <>
             <Home />
+            </>
           }>
-          
-          <Route exact path="/channels:id" element= {
+        </Route>
+
+        <Route exact path="/channels/:id" element= {
+            <>
             <Home />
-          }/>
-          </Route>
+            </>
+          }>
+        </Route>
+
         </Routes>
       </Router>
     </div>

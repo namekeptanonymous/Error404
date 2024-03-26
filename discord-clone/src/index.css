@@ -10,4 +10,8 @@
   .server-default {
     @apply h-12 bg-discord_serverBg rounded-full flex justify-center items-center cursor-pointer hover:rounded-xl transition-all duration-100 ease-out;
   }
+
+  .icon {
+    @apply h-6 text-discord_userSectionText cursor-pointer hover:text-discord_iconHover;
+  }
 }
