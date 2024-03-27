@@ -14,4 +14,13 @@
   .icon {
     @apply h-6 text-discord_userSectionText cursor-pointer hover:text-discord_iconHover;
   }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
