@@ -22,8 +22,11 @@ export default {
           discord_userSectionBg: "#292b2f",
           discord_iconHover: "#dcddde",
           discord_chatBg: "#36393f",
-          discord_chatHeaderIcon : "#72767d",
-          
+          discord_chatHeader : "#72767d",
+          discord_chatHeaderInputBg: "#202225",
+          discord_chatInputBg: "#40444B",
+          discord_chatInputText: "#dcddde",
+          discord_chatInput : "#72767d"
         },
         height:{ 
           "83vh": "83vh"
@@ -33,7 +36,6 @@ export default {
     },
      variants:{
       extend:{},
-     }, 
-     plugins:[require("tailwind-scrollbar-hide")],
+     }
      }
   }

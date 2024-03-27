@@ -6,7 +6,7 @@ import { auth, db } from '../firebase';
 //import { Navigate } from 'react-router-dom'; 
 import { useNavigate } from 'react-router-dom'; //
 import ServerIcon from './ServerIcon';
-import {ChevronDownIcon,PlusIcon, MicrophoneIcon, PhoneIcon, CogIcon} from "@heroicons/react/24/outline";
+import {ChevronDownIcon,PlusIcon, MicrophoneIcon, PhoneIcon, CogIcon} from "@heroicons/react/24/solid";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, doc, setDoc } from 'firebase/firestore';
 import Channel from './Channel.jsx'
