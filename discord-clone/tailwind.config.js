@@ -22,6 +22,7 @@ export default {
           discord_userSectionBg: "#292b2f",
           discord_iconHover: "#dcddde",
           discord_chatBg: "#36393f",
+          discord_chatHeaderIcon : "#72767d",
           
         },
         height:{ 
