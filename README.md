@@ -15,6 +15,8 @@ We, the undersigned members of Team Error 404, now mutually agree and solemnly c
 #### Overview
 The Error 404 team is committed to fostering a cooperative and productive atmosphere. We've established guidelines for effective communication, structured teamwork, and high-quality work output.
 
+We are currently working on creating a ChatterBox, a versatile communication platform designed to replicate the messaging and user functionalities of Discord. Chatterbox's frontend is designed with React.js, CSS and Tailwind for layout and styling while the backend is constructed with Firebase. 
+
 #### Meeting Frequency and Communication
 - We will hold weekly meetings to discuss progress, plan future tasks, and address any issues.
 - All team members agree to respond to emails and texts as soon as possible, typically within 24 hours.
@@ -72,8 +74,8 @@ The web-app can be accessed [here!](https://namekeptanonymous.github.io/Error404
 - All users can search for messages
 
 #### User Functionality
-- Users should have a user profile with banner, icon, description, etc.
-- Users should be able to access/update their personal information in their user account settings, such as their name, last name, email address, etc.
+- Users should have a user profile with banner, icon, description, username,.
+- Users should be able to access/update their personal information in their user account settings, such as their username: last name, email address, password, icon, and status.
 - All users can block another user
 - Users should be able to receive notifications
 
