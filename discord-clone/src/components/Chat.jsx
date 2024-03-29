@@ -22,12 +22,12 @@ function Chat() {
           )
       );
 
-    // const scrollToBottom = () => {
-    //     chatRef.current.scrollIntoView({
-    //         behavior: "smooth", 
-    //         block: "start",
-    //     });
-    // };
+    const scrollToBottom = () => {
+        chatRef.current.scrollIntoView({
+            behavior: "smooth", 
+            block: "start",
+        });
+    };
 
     const sendMessage = (e) => {
         e.preventDefault();
