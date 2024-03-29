@@ -24,14 +24,13 @@ describe('Header component', () => {
   it('renders "Login" button when user is logged out', async () => {
     // Mocking that the user is logged out
     useAuthState.mockReturnValue([false]);
-    
-    // Render the Header component
+
     render(<Header />, { wrapper: BrowserRouter });
 
     // Wait for the "Login" button to be rendered
     const loginButton = await screen.findByRole('button', { name: "Login" });
 
-    // Assert that the "Login" button is in the document
+
     expect(loginButton).toBeInTheDocument();
   });
 });
