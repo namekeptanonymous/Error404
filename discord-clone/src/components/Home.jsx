@@ -41,7 +41,11 @@ function Home() {
           <div className="server-default hover:bg-discord_green group">
             <PlusIcon className="text-discord_green h-7 group-hover:text-white"/>
           </div>
+<<<<<<< Updated upstream
 
+=======
+          <h1 className="text-2xl font-bold text-center my-4">Welcome to Your Dashboard</h1>
+>>>>>>> Stashed changes
           <div className="bg-discord_channelsBg flex flex-col min-w-max"> {/* Assuming you wanted to use a background class here */}
             <h2 className= "flex text-white font-bold text-sm items-center justify-between border-b  border-gray-800 p-4 hover:bg-discord_serverNameHoverBg cursor-pointer">Official Server...<ChevronDownIcon className=" h-5 ml-2"/>
             </h2>
