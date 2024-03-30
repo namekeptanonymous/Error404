@@ -5,7 +5,8 @@ import moment from "moment";
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 function Message({id, message, timestamp, name, email, photoURL}){
-  const[user]=useAuthState(auth);
+  const channelId = useSelector(selectChannelId);
+  const[user] = useAuthState(auth);
 
 
   return (
@@ -25,13 +26,19 @@ function Message({id, message, timestamp, name, email, photoURL}){
       </div>
       {user?.email=== email &&(
         <div className="hover:bg-discord_deleteIcon p-1 ml-auto rounded-sm 
-        text-discord_deleteIcon hover:text-white cursor-pointer">
-          <TrashIcon className="h-5"/>
+        text-discord_deleteIcon hover:text-white cursor-pointer" onClick={() => 
+          db
+        .collection("channels")
+        .doc(channelId)
+        .collection("messages")
+        .doc(id)
+        .delete()}>
+          <TrashIcon className="h-5 hidden opacity-0 group-hover:opacity-100" />
         </div>
       )}
 
     </div>
-  )
+  );
 }
 
-export default Message
+export default Message;
