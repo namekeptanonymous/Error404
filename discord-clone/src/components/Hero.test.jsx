@@ -27,10 +27,4 @@ describe('Hero component', () => {
     expect(openChatterBoxButton).toBeInTheDocument();
   });
 
-
-
-  
-
-  
-
 });
