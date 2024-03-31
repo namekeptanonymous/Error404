@@ -55,14 +55,10 @@ function Home() {
             <img src="../src/images/chatterbox.png" alt="" className="h-5" />
           </div>
           <hr className="border-gray-700 border w-8 mx-auto" />
-          {/* Placeholder for ServerIcon components */}
           <ServerIcon image="../src/images/chatterbox.png" />
-          <ServerIcon image="../src/images/chatterbox.png" />
-          <ServerIcon image="../src/images/chatterbox.png" />
-          <ServerIcon image="../src/images/chatterbox.png" />
-          <div className="server-default hover:bg-discord_green group">
+          {/* <div className="server-default hover:bg-discord_green group">
             <PlusIcon className="text-discord_green h-7 group-hover:text-white"/>
-          </div>
+          </div> */}
         </div>
           <div className="bg-discord_channelsBg flex flex-col min-w-max"> {/* Assuming you wanted to use a background class here */}
             <h2 className= "flex text-white font-bold text-sm items-center justify-between border-b  border-gray-800 p-4 hover:bg-discord_serverNameHoverBg cursor-pointer">Official Server...<ChevronDownIcon className=" h-5 ml-2"/>
@@ -84,10 +80,9 @@ function Home() {
               </div>
             </div>
             
-            <div className = "bg-discord_userSectionBg p-2 flex justify-between items-center space-x-8"> 
-              {/* src = {user?.photoURL} */}
+            <div className = "bg-discord_userSectionBg p-2 flex justify-between items-center space-x-8">
               <div className = "flex items-center space-x-1"> 
-              <img src={chatterboxImage} alt="" className="h-10 rounded-full" onClick={handleLogout}/> 
+              <img src={user?.photoURL} alt="" className="h-10 rounded-full" onClick={handleLogout} referrerPolicy="no-referrer"/> 
               <h4 className = "text-white text-xs font-medium">
                 {user?.displayName}
                 <span className="text-discord_userSectionText block">#{user?.uid.substring(0,4)}</span>
@@ -95,15 +90,7 @@ function Home() {
               </div>
             
             <div className = "text-gray-400 flex items-center"> 
-
-              <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
-                <MicrophoneIcon className = "h-5 icon"/>
-              </div>
-
-              <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
-                <PhoneIcon className = "h-5 icon"/>
-              </div>
-
+            
               <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
                 <CogIcon className = "h-5 icon"/>
               </div>

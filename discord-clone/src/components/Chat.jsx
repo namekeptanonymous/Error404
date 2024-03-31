@@ -52,14 +52,14 @@ function Chat() {
                     <h4 className = "text-white font-semibold"> {channelName} </h4>
                 </div>
                 <div className="flex space-x-3">
-                    <BellIcon className="icon"/>
+                    {/* <BellIcon className="icon"/> */}
                     <ChatBubbleOvalLeftEllipsisIcon className="icon"/>
                     <UsersIcon className="icon"/>
                     <div className="flex bg-discord_chatHeaderInputBg text-xs p-1 rounded-md">
                         <input type="text" placeholder="Search" className="bg-transparent focus:outline-none text-white pl-1 placeholder-discord_chatHeader" />
                         <MagnifyingGlassIcon className="h-5 text-discord_chatHeader mr-1" />
                     </div>
-                    <InboxIcon className="icon"/>
+                    {/* <InboxIcon className="icon"/> */}
                     <QuestionMarkCircleIcon className="icon"/>
                 </div>
             </header>
@@ -81,7 +81,7 @@ function Chat() {
                 <div ref={chatRef} className="pb-16"/>
             </main>
             <div className="flex items-center p-2.5 bg-discord_chatInputBg mx-5 mb-7 rounded-lg">
-                <PlusCircleIcon className="icon mr-4"/>
+                {/* <PlusCircleIcon className="icon mr-4"/> */}
                 <form className="flex-grow">
                     <input
                         type="text"
@@ -94,8 +94,7 @@ function Chat() {
                     />
                     <button hidden type="submit" onClick={sendMessage}>Send</button>
                 </form>
-                <GiftIcon className="icon mr-2"/>
-                <FaceSmileIcon className="icon"/>
+                {/* <FaceSmileIcon className="icon"/> */}
             </div>
         </div>
     )

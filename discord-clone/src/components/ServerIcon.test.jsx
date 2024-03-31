@@ -20,5 +20,6 @@ describe('ServerIcon component', () => {
     expect(imageElement).toHaveClass('duration-100');
     expect(imageElement).toHaveClass('ease-out');
     expect(imageElement).toHaveClass('hover:rounded-2xl');
+    expect(imageElement).toHaveClass('bg-discord_serversBg');
   });
 });
