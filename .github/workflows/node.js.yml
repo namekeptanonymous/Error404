@@ -30,5 +30,9 @@ jobs:
     - name: Navigate into discord-clone directory
       run: cd discord-clone/
     - run: npm install
+      working-directory: discord-clone/
     - run: npm run dev --if-present
+      working-directory: discord-clone/
     - run: npm test
+      working-directory: discord-clone/
+
