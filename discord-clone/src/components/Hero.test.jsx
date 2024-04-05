@@ -8,7 +8,7 @@ describe('Hero component', () => {
   });
 
   it('renders the main heading correctly', () => {
-    const mainHeading = screen.getByRole('heading', { name: /your place to yap/i });
+    const mainHeading = screen.getByRole('heading', { name: /your place to talk/i });
     expect(mainHeading).toBeInTheDocument();
   });
 

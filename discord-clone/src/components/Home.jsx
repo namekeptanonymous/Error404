@@ -37,6 +37,7 @@ function Home() {
   };
   //
 
+  const[users]=useCollection(collection(db, "users"));
   const[channels]=useCollection(collection(db, "channels"));
 
   const handleAddChannel = () => {
@@ -49,24 +50,31 @@ function Home() {
   };
 
   function handleClick() {
-    navigate('/direct-message'); // Use the path to your DirectMessage component as defined in your Routes setup
+    navigate('/direct-message');
   }
 
   return (
     <>
       <div className="flex h-screen">
         <div className="flex flex-col space-y-3 bg-discord_serversBg p-3 min-w-max">
-          <div className="server-default hover:bg-discord_purple" onClick={handleClick} >
+          <div className="server-default hover:bg-discord_purple">
             <img src="../src/images/chatterbox.png" alt="" className="h-5"/>
           </div>
           <hr className="border-gray-700 border w-8 mx-auto" />
-          <ServerIcon image="../src/images/chatterbox.png" />
-          {/* <div className="server-default hover:bg-discord_green group">
-            <PlusIcon className="text-discord_green h-7 group-hover:text-white"/>
-          </div> */}
+            {users?.docs.map((doc) => {
+                const {email, name, photoURL, uid} = doc.data();
+                return (
+                  <div key={doc.id} id={doc.id} onClick={() => handleClick()}>
+                    <ServerIcon
+                      image={photoURL}
+                    />
+                  </div>
+                );
+            })}
         </div>
           <div className="bg-discord_channelsBg flex flex-col min-w-max"> {/* Assuming you wanted to use a background class here */}
-            <h2 className= "flex text-white font-bold text-sm items-center justify-between border-b  border-gray-800 p-4 hover:bg-discord_serverNameHoverBg cursor-pointer">Official Server...<ChevronDownIcon className=" h-5 ml-2"/>
+            <h2 className= "flex text-white font-bold text-sm items-center justify-between border-b  border-gray-800 p-4 hover:bg-discord_serverNameHoverBg cursor-pointer">
+              Main Server<ChevronDownIcon className=" h-5 ml-2"/>
             </h2>
             <div className= "text-discord_channel flex-grow overflow-y-scroll scrollbar-hide">
               <div className="flex items-center p-2 mb-2">
