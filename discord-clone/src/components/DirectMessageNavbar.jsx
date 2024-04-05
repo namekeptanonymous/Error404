@@ -30,10 +30,14 @@ function DirectMessageNavbar () {
       .catch((error) => console.error("Logout error:", error)); // Handle errors
   };
   //
+
+  function goBackChannels() {
+    navigate('/channels');
+  }
   
   return (
     <div className="navbar">
-      <span className="logo">ChatterBox</span>
+      <span className="logo" onClick={goBackChannels}>ChatterBox</span>
       <div className="user">
         <img src={user?.photoURL} className="w-12 h-12 object-contain" alt="User Logo" />
         <span> {user?.displayName} </span>
