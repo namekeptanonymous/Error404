@@ -35,7 +35,7 @@ function DirectMessageNavbar () {
     <div className="navbar">
       <span className="logo">ChatterBox</span>
       <div className="user">
-        <img src={user?.photoURL} className="w-12 h-12 object-contain" alt="ChatterBox Logo" />
+        <img src={user?.photoURL} className="w-12 h-12 object-contain" alt="User Logo" />
         <span> {user?.displayName} </span>
         <button onClick={handleLogout}>logout</button>
       </div>
