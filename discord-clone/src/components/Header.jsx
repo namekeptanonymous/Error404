@@ -12,12 +12,13 @@ function Header() {
 
     // Function to store/update user data in Firestore
     const storeUserData = async (user) => {
-        const { uid, email, displayName } = user;
+        const { uid, email, displayName, photoURL } = user;
         try {
             await setDoc(doc(db, "users", uid), {
                 uid,
                 email,
-                name: displayName
+                name: displayName,
+                photoURL
             }, { merge: true }); // Using merge to avoid overwriting existing data
             console.log("User data stored in Firestore");
         } catch (error) {
