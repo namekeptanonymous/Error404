@@ -4,9 +4,11 @@ import ServerIcon from './ServerIcon';
 const DirectMessageChat = () => {
   return (
     <div className = "chat">
-      Chat
+      <div className = "chatInfo">
+        <span>Ariq</span>
+      </div>
     </div>
   )
 }
 
-export default DirectMessageChat
+export default DirectMessageChat;
