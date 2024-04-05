@@ -18,7 +18,7 @@ function Channel({ id, channelName }) {
   };
 
   return (
-    <div className="font-medium flex items-center cursor-pointer hover:bg-discord_channelHoverBg p-1 rounded-md hover:text-white" onClick={setChannel}>
+    <div className="font-medium flex items-center cursor-pointer text-discord_channel hover:bg-discord_channelHoverBg p-1 rounded-md hover:text-white" onClick={setChannel}>
       <HashtagIcon className="h-5 mr-2" />
       {channelName}
     </div>

@@ -6,7 +6,7 @@ function Hero() {
     <div className="bg-discord_blue pb-8 md:pb-0">
       <div className="p-7 py-9 h-screen md:flex md:h-[83vh] relative">
         <div className="flex flex-col gap-7 md:max-w-md lg:max-w-none lg:justify-center">
-          <h1 className='text-5xl text-white font-bold'>Your place to yap</h1>
+          <h1 className='text-5xl text-white font-bold'>Your place to talk</h1>
           <h2 className='text-white text-lg font-light tracking-wide lg:max-w-3xl w-full'>
             Whether you’re part of a school club, gaming group, worldwide art
             community, or just a handful of friends that want to spend time

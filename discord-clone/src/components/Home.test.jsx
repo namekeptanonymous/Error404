@@ -66,7 +66,7 @@ describe('Home Component', () => {
   
       renderWithProviders(<Home />);
   
-      expect(screen.getByText(/Official Server.../i)).toBeInTheDocument();
+      expect(screen.getByText(/Main Server/i)).toBeInTheDocument();
     });
 
     /*
