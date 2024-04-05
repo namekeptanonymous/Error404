@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Home from './components/Home';
+import DirectMessageHome from './components/DirectMessageHome';
+import "./styles.scss";
 
 function App() {
   return (
@@ -28,6 +30,13 @@ function App() {
         <Route exact path="/channels/:id" element= {
             <>
             <Home />
+            </>
+          }>
+        </Route>
+
+        <Route exact path="/direct-message" element= {
+            <>
+            <DirectMessageHome />
             </>
           }>
         </Route>
