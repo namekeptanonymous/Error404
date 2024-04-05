@@ -1,4 +1,4 @@
-import { HashtagIcon, BellIcon, ChatBubbleOvalLeftEllipsisIcon, UsersIcon, MagnifyingGlassIcon, InboxIcon, QuestionMarkCircleIcon, PlusCircleIcon, GiftIcon, FaceSmileIcon } from "@heroicons/react/24/solid";
+import { HashtagIcon, UsersIcon, MagnifyingGlassIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { useSelector }from "react-redux";
 import { selectChannelId, selectChannelName } from "../features/channelSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -62,15 +62,13 @@ function Chat() {
                     <h4 className = "text-white font-semibold"> {channelName} </h4>
                 </div>
                 <div className="flex space-x-3">
-                    {/* <BellIcon className="icon"/> */}
-                    <ChatBubbleOvalLeftEllipsisIcon className="icon"/>
-                    <UsersIcon className="icon" onClick={togglePanel} />
+                    {channelId && 
+                        <UsersIcon className="icon" onClick={togglePanel} />
+                    }
                     <div className="flex bg-discord_chatHeaderInputBg text-xs p-1 rounded-md">
                         <input type="text" placeholder="Search" className="bg-transparent focus:outline-none text-white pl-1 placeholder-discord_chatHeader" />
                         <MagnifyingGlassIcon className="h-5 text-discord_chatHeader mr-1" />
                     </div>
-                    {/* <InboxIcon className="icon"/> */}
-                    <QuestionMarkCircleIcon className="icon"/>
                 </div>
             </header>
             <main className="flex-grow overflow-y-scroll scrollbar-hide">
@@ -91,8 +89,7 @@ function Chat() {
                 <div ref={chatRef} className="pb-16"/>
             </main>
             <div className="flex items-center p-2.5 bg-discord_chatInputBg mx-5 mb-7 rounded-lg">
-                {/* <PlusCircleIcon className="icon mr-4"/> */}
-                <form className="flex-grow">
+                <form className="flex flex-grow">
                     <input
                         type="text"
                         disabled={!channelId}
@@ -103,8 +100,8 @@ function Chat() {
                         ref={inputRef}
                     />
                     <button hidden type="submit" onClick={sendMessage}>Send</button>
+                    <PaperAirplaneIcon className="icon cursor-pointer" onClick={sendMessage} />
                 </form>
-                {/* <FaceSmileIcon className="icon"/> */}
             </div>
             {isPanelOpen && channelId && (
                 <div className="absolute space-y-2 p-4 mb-4 bg-discord_channelsBg text-white right-0 top-14 h-screen w-64">
