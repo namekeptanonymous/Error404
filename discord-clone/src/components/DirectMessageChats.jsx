@@ -10,6 +10,7 @@ const DirectMessageChats = () => {
   
   const [chats, setChats] = useState([]);
   const [currentUser] = useAuthState(auth);
+  
 
   useEffect(() => {
     const getChats = () => {
