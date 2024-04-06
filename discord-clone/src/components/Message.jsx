@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectChannelId } from "../features/channelSlice";
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from "../firebase"; // Assuming this is set up in a modular way
-import { doc, deleteDoc } from 'firebase/firestore';
-import { db } from "../firebase"; // Ensure db is initialized using Firebase 9+ modular approach
+import { auth, db } from "../firebase";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection, doc, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 import moment from 'moment';
 import emojiRegex from 'emoji-regex';
 import { TrashIcon } from '@heroicons/react/24/solid';
@@ -12,6 +12,27 @@ import { TrashIcon } from '@heroicons/react/24/solid';
 function Message({ id, message, timestamp, name, email, photoURL }) {
   const channelId = useSelector(selectChannelId);
   const [user] = useAuthState(auth);
+
+  const [admins] = useCollection(collection(db, "admins"));
+  const [adminEmailExists, setAdminEmailExists] = useState(false); // State to hold whether the admin email exists
+
+  // Function to check if a certain email exists in the admins collection
+  const checkAdminEmail = async (emailToFind) => {
+    const q = query(
+      collection(db, "admins"),
+      where("email", "==", emailToFind)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    setAdminEmailExists(!querySnapshot.empty);
+  };
+
+  useEffect(() => {
+    if (user) {
+      checkAdminEmail(user?.email);
+    }
+  }, []);
 
   // Function to delete a message
   const deleteMessage = async () => {
@@ -41,7 +62,7 @@ function Message({ id, message, timestamp, name, email, photoURL }) {
         </h4>
         <p className={`${textSize} text-discord_message`}>{message}</p>
       </div>
-      {user?.email === email && (
+      {(user?.email === email || adminEmailExists) && (
         <div className="ml-auto p-1 rounded-sm cursor-pointer group-hover:bg-discord_deleteIcon hover:bg-discord_deleteIconBg hover:text-white" onClick={deleteMessage}>
           <TrashIcon className="h-5 opacity-0 group-hover:opacity-100" />
         </div>

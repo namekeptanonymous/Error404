@@ -61,7 +61,7 @@ describe('Home Component', () => {
     });
   
     it('renders without crashing when user is authenticated', async () => {
-      useAuthState.mockReturnValue([{ displayName: 'Test User', uid: '1234' }, false, undefined]);
+      useAuthState.mockReturnValue([{ displayName: 'Test User', uid: '1234', email: 'example@example.com' }, false, undefined]);
       useCollection.mockReturnValue([{ docs: [] }, false, undefined]);
   
       renderWithProviders(<Home />);
