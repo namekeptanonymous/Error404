@@ -2,7 +2,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../context/ChatContext";
 import { db } from "../firebase";
-import Message from "./DirectMessageMessage";
+import DirectMessageMessage from "./DirectMessageMessage";
 
 const DirectMessageMessages = () => {
   const [messages, setMessages] = useState([]);
@@ -25,7 +25,7 @@ const DirectMessageMessages = () => {
       {messages.map((m) => {
         // Ensure that m.text is a string
         if (typeof m.text === "string") {
-          return <Message message={m} key={m.id} />;
+          return <DirectMessageMessage message={m} key={m.id} />;
         } else {
           // Handle the case where m.text is not a string
           console.error("Message text is not a string:", m);

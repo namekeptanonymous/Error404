@@ -8,19 +8,29 @@ const DirectMessageMessage = ({message}) => {
   const [currentUser] = useAuthState(auth);
   const { data } = useContext(ChatContext);
 
-  console.log(message);
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
+
+  //console.log(message);
   return (
-    <div className = 'message owner'>
+    <div ref={ref} className = {`message ${message.senderId === currentUser.uid && "owner"}`}>
       <div className = 'messageInfo'>
-          <img src ={currentUser?.photoURL} alt =""/>
+          <img src ={
+            message.senderId === currentUser.uid
+              ? currentUser.photoURL
+              : data.user.photoURL
+          } alt =""/>
           <span>just now</span>
       </div>
       <div className = 'messageContent'>
-        <p>hello</p>
-        {/* <img src ={user?.photoURL} alt =""/> */}
+        <p>{message.text}</p>
+        {message.img && <img src={message.img} alt="" />}
       </div>
     </div>
   )
 }
 
-export default DirectMessageMessage
+export default DirectMessageMessage;

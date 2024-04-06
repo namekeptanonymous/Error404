@@ -33,19 +33,27 @@ const DirectMessageChats = () => {
   };
 
   return (
-    <div className = "chats">
+    <div className="chats">
+      {Object.entries(chats)?.sort((a,b) => b[1].date - a[1].date).map(([chatId, chatData]) => {
+        // Check if userInfo exists before trying to access its properties
+        const userInfo = chatData.userInfo;
+        if (!userInfo) {
+          // Skip rendering this chat entry if userInfo is undefined
+          return null;
+        }
 
-    {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
-      <div className = "userChat" key={chat[0]} onClick={() => handleSelect(chat[1].userInfo)}>
-          <img src={chat[1].userInfo.photoURL} alt="User Logo" />
+        return (
+          <div className="userChat" key={chatId} onClick={() => handleSelect(userInfo)}>
+            {/* Now we are sure userInfo is defined */}
+            <img src={userInfo.photoURL || chatterboxImage} alt="User Logo" />
 
-          <div className = "userChatInfo">
-            <span>{chat[1].userInfo.name}</span>
-            <p>{chat[1].lastMessage?.text}</p>
+            <div className="userChatInfo">
+              <span>{userInfo.name}</span>
+              <p>{chatData.lastMessage?.text}</p>
+            </div>
           </div>
-
-      </div>
-    ))}
+        );
+      })}
     </div>
   );
 };
