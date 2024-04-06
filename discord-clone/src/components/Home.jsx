@@ -1,14 +1,12 @@
 import React from 'react';
-import { useEffect } from 'react'; //
-import chatterboxImage from '../images/chatterbox.png';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
-//import { Navigate } from 'react-router-dom'; 
-import { useNavigate } from 'react-router-dom'; //
+import { useNavigate } from 'react-router-dom';
 import ServerIcon from './ServerIcon';
-import {ChevronDownIcon,PlusIcon, MicrophoneIcon, PhoneIcon, CogIcon} from "@heroicons/react/24/solid";
+import { ChevronDownIcon, PlusIcon, CogIcon, ShieldExclamationIcon } from "@heroicons/react/24/solid";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, getDocs, query, where } from 'firebase/firestore';
 import Channel from './Channel.jsx'
 import Chat from './Chat.jsx'
 
@@ -16,26 +14,20 @@ function Home() {
   const navigate = useNavigate(); //
   const [user] = useAuthState(auth);
 
-  //
+
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
   }, [user, navigate]);
-  //
 
-  // Check if user is not authenticated and navigate to the root ("/") if needed
-  //if (!user) { //
-    //return <Navigate to="/" replace />; //
-  //} //
 
-  //
   const handleLogout = () => {
     auth.signOut()
       .then(() => navigate("/")) // Redirect after sign out
       .catch((error) => console.error("Logout error:", error)); // Handle errors
   };
-  //
+
 
   const[users]=useCollection(collection(db, "users"));
   const[channels]=useCollection(collection(db, "channels"));
@@ -43,7 +35,6 @@ function Home() {
   const handleAddChannel = () => {
     const channelName = prompt("Enter a new channel name");
     if (channelName) {
-      // Use Firestore's doc() and setDoc() methods
       const channelRef = doc(db, "channels", channelName);
       setDoc(channelRef, { channelName });
     }
@@ -52,6 +43,27 @@ function Home() {
   function handleClick() {
     navigate('/direct-message');
   }
+
+  const [admins] = useCollection(collection(db, "admins"));
+  const [adminEmailExists, setAdminEmailExists] = useState(false); // State to hold whether the admin email exists
+
+  // Function to check if a certain email exists in the admins collection
+  const checkAdminEmail = async (emailToFind) => {
+    const q = query(
+      collection(db, "admins"),
+      where("email", "==", emailToFind)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    setAdminEmailExists(!querySnapshot.empty);
+  };
+
+  useEffect(() => {
+    if (!user) {
+      checkAdminEmail(user?.email);
+    }
+  }, []);
 
   return (
     <>
@@ -72,7 +84,7 @@ function Home() {
                 );
             })}
         </div>
-          <div className="bg-discord_channelsBg flex flex-col min-w-max"> {/* Assuming you wanted to use a background class here */}
+          <div className="bg-discord_channelsBg flex flex-col min-w-max">
             <h2 className= "flex text-white font-bold text-sm items-center justify-between border-b  border-gray-800 p-4 hover:bg-discord_serverNameHoverBg cursor-pointer">
               Main Server<ChevronDownIcon className=" h-5 ml-2"/>
             </h2>
@@ -103,11 +115,14 @@ function Home() {
               </div>
             
             <div className = "text-gray-400 flex items-center"> 
-            
+              <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => navigate('/admin-page')}>
+                {adminEmailExists &&
+                  <ShieldExclamationIcon className="icon"/>
+                }
+              </div>
               <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
                 <CogIcon className = "h-5 icon"/>
               </div>
-
             </div>
           </div>
         </div>

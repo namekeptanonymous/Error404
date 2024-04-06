@@ -1,6 +1,6 @@
 import { HashtagIcon } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import { setChannelInfo } from "../features/channelSlice";
 
 function Channel({ id, channelName }) {
