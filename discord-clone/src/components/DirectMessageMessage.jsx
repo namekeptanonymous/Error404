@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {useContext, useEffect, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
+import { ChatContext } from "../context/ChatContext";
 
-const DirectMessageMessage = () => {
-  const [user] = useAuthState(auth);
 
+const DirectMessageMessage = ({message}) => {
+  const [currentUser] = useAuthState(auth);
+  const { data } = useContext(ChatContext);
+
+  console.log(message);
   return (
     <div className = 'message owner'>
       <div className = 'messageInfo'>
-          <img src ={user?.photoURL} alt =""/>
+          <img src ={currentUser?.photoURL} alt =""/>
           <span>just now</span>
       </div>
       <div className = 'messageContent'>
