@@ -13,6 +13,7 @@ const DirectMessageMessage = () => {
       </div>
       <div className = 'messageContent'>
         <p>hello</p>
+        {/* <img src ={user?.photoURL} alt =""/> */}
       </div>
     </div>
   )
