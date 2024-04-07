@@ -47,7 +47,7 @@ describe('Chat component', () => {
 
     it('renders "Select a channel" placeholder when user is logged in and no channel is selected', async () => {
         useAuthState.mockReturnValue([{ displayName: 'Test User', uid: '1234', email: 'example@example.com' }]);
-        useCollection.mockReturnValue([{ docs: [] }]);
+        useCollection.mockReturnValue([ { docs: [] } ]);
 
         const mockStore = configureStore({
             reducer: {
