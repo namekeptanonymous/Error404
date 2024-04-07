@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
@@ -60,9 +59,9 @@ function Home() {
   };
 
   useEffect(() => {
-    if (!user) {
-      checkAdminEmail(user?.email);
-    }
+      if (user) {
+        checkAdminEmail(user?.email);
+      }
   }, []);
 
   return (
@@ -115,11 +114,11 @@ function Home() {
               </div>
             
             <div className = "text-gray-400 flex items-center"> 
-              <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => navigate('/admin-page')}>
-                {adminEmailExists &&
+              {adminEmailExists &&
+                <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => navigate('/admin-page')}>
                   <ShieldExclamationIcon className="icon"/>
-                }
-              </div>
+                </div>
+              }
               <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
                 <CogIcon className = "h-5 icon"/>
               </div>

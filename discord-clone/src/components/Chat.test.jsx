@@ -19,7 +19,7 @@ describe('Chat component', () => {
     });
 
     it('renders "Message #channelName" placeholder and channelId is present', async () => {
-        useAuthState.mockReturnValue([{ displayName: 'Test User' }]);
+        useAuthState.mockReturnValue([{ displayName: 'Test User', uid: '1234', email: 'example@example.com' }]);
         useCollection.mockReturnValue([{ docs: [] }]);
 
         const mockStore = configureStore({
@@ -46,7 +46,7 @@ describe('Chat component', () => {
     });
 
     it('renders "Select a channel" placeholder when user is logged in and no channel is selected', async () => {
-        useAuthState.mockReturnValue([{ displayName: 'Test User' }]);
+        useAuthState.mockReturnValue([{ displayName: 'Test User', uid: '1234', email: 'example@example.com' }]);
         useCollection.mockReturnValue([{ docs: [] }]);
 
         const mockStore = configureStore({
@@ -68,7 +68,7 @@ describe('Chat component', () => {
     });
 
     it('renders message placeholder when a channel is selected and messages are present', async () => {
-        useAuthState.mockReturnValue([{ displayName: 'Test User' }]);
+        useAuthState.mockReturnValue([{ displayName: 'Test User', uid: '1234', email: 'example@example.com' }]);
         useCollection.mockReturnValue([{ 
             docs: [
               { 
