@@ -22,6 +22,27 @@ function Chat() {
           )
       );
 
+    const [admins] = useCollection(collection(db, "channels", channelId || 'default', "admins"));
+    const [adminEmailExists, setAdminEmailExists] = useState(false); // State to hold whether the admin email exists
+
+    const checkAdminEmail = async (emailToFind) => {
+      const q = query(
+        collection(db, "channels",  channelId || 'default', "admins"),
+        where("email", "==", emailToFind)
+      );
+    
+      const querySnapshot = await getDocs(q);
+    
+      setAdminEmailExists(!querySnapshot.empty);
+    };
+
+    useEffect(() => {
+        if (user) {
+            setPanelOpen(false);
+            checkAdminEmail(user?.email);
+        }
+    }, [channelId]);
+
     const[users]=useCollection(collection(db, "users"));
 
     const channelMembersCollection = collection(db, "channels", channelId || 'default', "channelUsers");
@@ -84,30 +105,6 @@ function Chat() {
     const togglePanel = () => {
         setPanelOpen(!isPanelOpen);
     };
-
-    const [admins] = useCollection(collection(db, "channels", channelId || 'default', "admins"));
-    const [adminEmailExists, setAdminEmailExists] = useState(false); // State to hold whether the admin email exists
-  
-    // Function to check if a certain email exists in the admins collection
-    const checkAdminEmail = async (emailToFind) => {
-      const q = query(
-        collection(db, "channels",  channelId || 'default', "admins"),
-        where("email", "==", emailToFind)
-      );
-  
-      const querySnapshot = await getDocs(q);
-  
-      setAdminEmailExists(!querySnapshot.empty);
-    };
-  
-    useEffect(() => {
-      if (user) {
-        checkAdminEmail(user?.email);
-      }
-    }, []);
-    useEffect(() => {
-        setPanelOpen(false);
-      }, [channelId]);
 
     const adminUserIds = admins?.docs.map(doc => doc.id);
     const nonAdminMembers = adminUserIds && channelMembers?.docs.filter(doc => !adminUserIds.includes(doc.id));

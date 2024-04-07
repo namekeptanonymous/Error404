@@ -38,15 +38,6 @@ function Header() {
             .catch((error) => alert(error.message));
     };
 
-    /*
-    const signIn = (e) => {
-        e.preventDefault();
-        signInWithPopup(auth, provider)
-            .then(() => navigate("/channels"))
-            .catch((error)=>alert(error.message));
-    };
-    */
-
     return (
         <header className="flex items-center justify-between py-4 px-6 bg-discord_blue">
             <a href="/">
