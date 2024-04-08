@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { db } from './firebase';
+import { db } from '../firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
 
 const FriendRequests = ({ userId }) => {

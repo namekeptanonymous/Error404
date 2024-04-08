@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { db } from './firebase'; // Ensure this import points to your firebase configuration file
+import { db } from '../firebase'; // Ensure this import points to your firebase configuration file
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 
 const FriendsList = ({ userId }) => {
