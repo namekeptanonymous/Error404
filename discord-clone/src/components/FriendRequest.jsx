@@ -1,36 +1,66 @@
-import React, { useEffect, useState } from 'react';
-import { db } from '../firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
+import React from 'react';
 
-const FriendRequests = ({ userId }) => {
-    const [requests, setRequests] = useState([]);
+// Static list for UI mockup
+const mockPendingRequests = [
+  { id: '3', name: 'Emily Johnson', avatar: 'path/to/avatar3.png' },
+  // Add more mock requests data if needed
+];
 
-    useEffect(() => {
-        const requestsRef = collection(db, "users", userId, "friendRequests");
+const mockSuggestedFriends = [
+  { id: '4', name: 'Michael Brown', avatar: 'path/to/avatar4.png' },
+  // Add more mock suggested friends data if needed
+];
 
-        const unsubscribe = onSnapshot(requestsRef, (snapshot) => {
-            const requestData = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
-            setRequests(requestData);
-        });
+const buttonStyle = {
+    color: 'white',
+    backgroundColor: 'transparent',
+    border: '1px solid white',
+    borderRadius: '4px',
+    padding: '5px 10px',
+    cursor: 'pointer',
+    margin: '5px',
+  };
 
-        return () => unsubscribe();
-    }, [userId]);
+const FriendRequests = () => {
+  const acceptFriendRequest = (requestId) => {
+    console.log(`Accepting friend request with ID: ${requestId}`);
+    // Accept friend request implementation
+  };
 
-    // Here you would implement methods to accept or decline requests
+  const declineFriendRequest = (requestId) => {
+    console.log(`Declining friend request with ID: ${requestId}`);
+    // Decline friend request implementation
+  };
 
-    return (
-        <div>
-            {requests.map(request => (
-                <div key={request.id}>
-                    <span>{request.name}</span>
-                    {/* Add buttons for accepting or declining the request */}
-                </div>
-            ))}
-        </div>
-    );
+  const sendFriendRequest = (friendId) => {
+    console.log(`Sending friend request to ID: ${friendId}`);
+    // Send friend request implementation
+  };
+
+  return (
+    <div>
+      <div>
+        <h2>Pending Friend Requests</h2>
+        {mockPendingRequests.map(request => (
+          <div key={request.id} className="request-item">
+            <img src={request.avatar} alt={`${request.name}'s avatar`} style={{ marginRight: '10px' }} />
+            <span>{request.name}</span>
+            <button style={buttonStyle} onClick={() => acceptFriendRequest(request.id)}>Accept</button>
+            <button style={buttonStyle} onClick={() => declineFriendRequest(request.id)}>Decline</button>
+          </div>
+        ))}
+      </div>
+      <div>
+        <h2>Add Friend</h2>
+        {mockSuggestedFriends.map(friend => (
+          <div key={friend.id} className="suggested-friend-item">
+            <span>{friend.name}</span>
+            <button style={buttonStyle} onClick={() => sendFriendRequest(friend.id)}>Add Friend</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default FriendRequests;

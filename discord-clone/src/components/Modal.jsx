@@ -14,31 +14,60 @@ const Modal = ({ children, isOpen, close }) => {
     }, [close]);
 
     useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
+        document.body.style.overflow = isOpen ? 'hidden' : 'unset';
     }, [isOpen]);
 
     if (!isOpen) return null;
 
+    const modalStyle = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 50,
+    };
+
+    const overlayStyle = {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.85)', // Dark overlay for contrast
+    };
+
+    const modalContentStyle = {
+        position: 'relative',
+        backgroundColor: '#36393F', // Discord dark theme background color
+        padding: '20px',
+        borderRadius: '8px',
+        boxShadow: '0 2px 10px 0 rgba(0, 0, 0, 0.2)',
+        zIndex: 50,
+        overflow: 'auto',
+        color: 'white', // Text color
+    };
+
+    const closeButtonStyle = {
+        marginTop: '20px',
+        backgroundColor: '#5865F2', // Discord blue for buttons
+        color: 'white',
+        fontWeight: 'bold',
+        padding: '8px 16px',
+        borderRadius: '4px',
+        border: 'none',
+        cursor: 'pointer',
+    };
+
     return (
-        <div
-            id="modalBackdrop"
-            className="fixed inset-0 z-50 flex items-center justify-center"
-            onClick={handleBackdropClick}
-        >
-            <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
-            <div
-                className="relative bg-white p-6 rounded shadow-lg z-50 overflow-auto"
-                onClick={(e) => e.stopPropagation()} // Prevent click through
-            >
+        <div id="modalBackdrop" style={modalStyle} onClick={handleBackdropClick}>
+            <div style={overlayStyle}></div>
+            <div style={modalContentStyle} onClick={(e) => e.stopPropagation()}>
                 {children}
-                <button
-                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={close}
-                >
+                <button style={closeButtonStyle} onClick={close}>
                     Close
                 </button>
             </div>
