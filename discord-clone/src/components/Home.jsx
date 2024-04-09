@@ -76,27 +76,31 @@ function Home() {
           </div>
         </div>
         <div className="bg-discord_userSectionBg p-2 flex justify-between items-center space-x-8">
-          <div className="flex items-center space-x-1">
-            <img src={user?.photoURL} alt="" className="h-10 rounded-full" onClick={handleLogout} referrerPolicy="no-referrer"/>
-            <h4 className="text-white text-xs font-medium">
-              {user?.displayName}
-              <span className="text-discord_userSectionText block">#{user?.uid.substring(0,4)}</span>
-            </h4>
-          </div>
-          <div className="text-gray-400 flex items-center">
-            {adminEmailExists &&
-              <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => navigate('/admin-page')}>
-                <ShieldExclamationIcon className="icon"/>
-              </div>
-            }
-            <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => setShowFriendsModal(true)}>
-              <UserGroupIcon className="h-5 icon" />
-            </div>
-            <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={handleLogout}>
-              <CogIcon className="h-5 icon"/>
-            </div>
-          </div>
-        </div>
+  <div className="flex items-center space-x-1">
+    <img src={user?.photoURL} alt="" className="h-10 rounded-full" onClick={handleLogout} referrerPolicy="no-referrer"/>
+    <h4 className="text-white text-xs font-medium">
+      {user?.displayName}
+      <span className="text-discord_userSectionText block">#{user?.uid.substring(0,4)}</span>
+    </h4>
+  </div>
+  <div className="text-gray-400 flex items-center">
+    {adminEmailExists &&
+      <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => navigate('/admin-page')}>
+        <ShieldExclamationIcon className="icon"/>
+      </div>
+    }
+    <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => {
+      console.log("Opening friends modal"); // This will log to the console when the icon is clicked
+      setShowFriendsModal(true);
+    }}>
+      <UserGroupIcon className="h-5 icon" />
+    </div>
+    <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={handleLogout}>
+      <CogIcon className="h-5 icon"/>
+    </div>
+  </div>
+</div>
+
       </div>
       <div className="bg-discord_chatBg flex-grow">
         <Chat />
