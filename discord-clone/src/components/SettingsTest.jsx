@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import NewComponent from './NewComponent'; // Assuming the component file is named NewComponent.js
+import Settings from './Settings'; // Assuming the component file is named Settings.js
 
-describe('NewComponent', () => {
+describe('Settings', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<NewComponent />);
+    wrapper = shallow(<Settings />);
   });
 
   it('renders the component without crashing', () => {

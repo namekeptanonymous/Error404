@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Home from './components/Home';
 import DirectMessageHome from './components/DirectMessageHome';
+import Settings from './components/Settings';
 import "./styles.scss";
 
 function App() {
@@ -37,6 +38,13 @@ function App() {
         <Route exact path="/direct-message" element= {
             <>
             <DirectMessageHome />
+            </>
+          }>
+        </Route>
+
+        <Route exact path="/settings" element= {
+            <>
+            <Settings />
             </>
           }>
         </Route>

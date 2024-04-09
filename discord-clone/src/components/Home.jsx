@@ -143,7 +143,7 @@ function Home() {
             
             <div className = "text-gray-400 flex items-center"> 
               <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
-                <CogIcon className = "h-5 icon"/>
+                <CogIcon className = "h-5 icon" onClick={() => navigate('/settings')}/>
               </div>
             </div>
           </div>
