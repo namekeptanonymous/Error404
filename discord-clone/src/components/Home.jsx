@@ -172,11 +172,6 @@ function Home() {
     </h4>
   </div>
   <div className="text-gray-400 flex items-center">
-    {adminEmailExists &&
-      <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => navigate('/admin-page')}>
-        <ShieldExclamationIcon className="icon"/>
-      </div>
-    }
     <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => {
       console.log("Opening friends modal"); // This will log to the console when the icon is clicked
       setShowFriendsModal(true);
