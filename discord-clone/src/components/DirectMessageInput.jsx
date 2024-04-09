@@ -25,22 +25,16 @@ const DirectMessageInput = () => {
       return;
     }
 
-    try {
-      await updateDoc(doc(db, "chats", data.chatId), {
-        messages: arrayUnion({
-          id: uuid(),
-          text,
-          senderId: currentUser.uid,
-          date: Timestamp.now(),
-        }),
-      });
-      setText(""); // Reset text state after sending message
-      // setImg(null); // Reset img state after sending message if you are using image state
-    } catch (error) {
-      console.error("Error sending message: ", error);
-      // Handle the error state appropriately
-    }
-
+    
+    await updateDoc(doc(db, "chats", data.chatId), {
+    messages: arrayUnion({
+      id: uuid(),
+      text,
+      senderId: currentUser.uid,
+      date: Timestamp.now(),
+      }),
+    });
+      
     await updateDoc(doc(db, "userChats", currentUser.uid), {
       [data.chatId + ".lastMessage"]: {
         text,
@@ -58,16 +52,12 @@ const DirectMessageInput = () => {
     setText("");
 
   }
-
-  
-
-  //setText("");
   
   return (
     <div className = 'input'>
       <input type="text" placeholder = "Type something..." onChange={(e) => setText(e.target.value)} value={text}/>
       <div className = "send">
-          <img src ="" alt =""/>
+          
           <button onClick={handleSend}> Send </button>
       </div>
     </div>

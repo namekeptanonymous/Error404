@@ -20,6 +20,7 @@ const DirectMessageMessages = () => {
 
   console.log(messages);
 
+  {/* return statement different */}
   return (
     <div className="messages">
       {messages.map((m) => {

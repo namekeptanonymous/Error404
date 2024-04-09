@@ -1,9 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect } from 'react'; //
-import chatterboxImage from '../images/chatterbox.png';
 import { auth, db } from '../firebase';
-import { useNavigate } from 'react-router-dom'; //
 import {
   collection,
   query,
@@ -24,85 +21,107 @@ const DirectMessageSearch = () => {
   const [err, setErr] = useState(false);
 
   const handleSearch = async () => {
-    const q = query(collection(db, "users"), where("name", "==", username));
+    setErr(false);
+    if (username.trim() === "") {
+      setErr(true);
+      return;
+    }
 
+    const q = query(collection(db, "users"), where("name", "==", username));
     try {
       const querySnapshot = await getDocs(q);
+      let foundUser = false;
       querySnapshot.forEach((doc) => {
-        setUser(doc.data());
+        if (doc.data().uid !== currentUser.uid) { // Checks if the found user is not the current user
+          setUser(doc.data());
+          foundUser = true;
+        }
       });
+      if (!foundUser) {
+        setUser(null);
+        setErr(true);
+      }
     } catch (err) {
       setErr(true);
     }
-
   };
 
   const handleKey = e => {
-    e.code === "Enter" && handleSearch();
+    if (e.code === "Enter") {
+      handleSearch();
+    }
   };
 
   const handleSelect = async () => {
-    //check whether the group(chats in firestore) exists, if not create
-    const combinedId =
-      currentUser.uid > user.uid
-        ? currentUser.uid + user.uid
-        : user.uid + currentUser.uid;
+    if (user && currentUser.uid === user.uid) {
+      setErr(true);
+      setUser(null);
+      setUsername("");
+      return; // Exit the function if trying to chat with oneself
+    }
+
+    const combinedId = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid;
+
     try {
-      const chatRef = doc(db, "chats", combinedId);
-    const userChatRef = doc(db, "userChats", currentUser.uid);
-    const recipientChatRef = doc(db, "userChats", user.uid);
+      const res = await getDoc(doc(db, "chats", combinedId));
 
-    // Create a chat if it doesn't exist
-    await setDoc(chatRef, { messages: [] }, { merge: true });
+      if (!res.exists()) {
+        //create a chat in chats collection
+        await setDoc(doc(db, "chats", combinedId), { messages: [] });
 
-    // Update current user's chat list
-    await updateDoc(userChatRef, {
-      [`${combinedId}.userInfo`]: {
-        uid: user.uid,
-        name: user.name, // ensure this is the correct field name
-        photoURL: user.photoURL,
-      },
-      [`${combinedId}.date`]: serverTimestamp(),
-    }, { merge: true });
+        //create user chats
+        await updateDoc(doc(db, "userChats", currentUser.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
 
-    // Update the other user's chat list
-    await updateDoc(recipientChatRef, {
-      [`${combinedId}.userInfo`]: {
-        uid: currentUser.uid,
-        name: currentUser.name, // ensure this is the correct field name
-        photoURL: currentUser.photoURL,
-      },
-      [`${combinedId}.date`]: serverTimestamp(),
-    }, { merge: true });
+        await updateDoc(doc(db, "userChats", user.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: currentUser.uid,
+            displayName: currentUser.displayName,
+            photoURL: currentUser.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+      }
+
+      // After creating the chat, you might want to dispatch an action to your context to set this chat as the current chat
+      // dispatch({ type: "CHANGE_USER", payload: user });
+      
+      // Clear the selected user
+      setUser(null);
+      setUsername("");
     } catch (err) {
-    setErr(true);};
-
-    setUser(null);
-    setUsername("");
-    
-
-  }
+      console.error("Error creating chat: ", err);
+    }
+  };
 
   return (
     <div className="search">
       <div className="searchForm">
-          <input type="text" placeholder="Find a user" onKeyDown ={handleKey} onChange={e => setUsername(e.target.value)} value={username}/>
+        <input
+          type="text"
+          placeholder="Find a user"
+          onKeyDown={handleKey}
+          onChange={e => setUsername(e.target.value)}
+          value={username}
+        />
       </div>
       
-      {err && <span></span>} {/* user not found*/}
-      {user && <div className = "userChat" onClick={handleSelect}>
+      {err && <span>User not found or invalid operation</span>}
+      {user && (
+        <div className="userChat" onClick={handleSelect}>
           <img src={user?.photoURL} alt="User Logo" />
-
-          <div className = "userChatInfo">
+          <div className="userChatInfo">
             <span>{user?.name}</span>
           </div>
-
-      </div> }
-
+        </div>
+      )}
     </div>
-      
-          
-       
   );
 }
 

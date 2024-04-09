@@ -15,35 +15,47 @@ const DirectMessageChats = () => {
 
 
   useEffect(() => {
-    const getChats = () => {
-      const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
-        setChats(doc.data());
-      });
+    if (currentUser?.uid) { // Make sure currentUser is not null before accessing uid
+      const getChats = () => {
+        const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
+          setChats(doc.data() ?? {}); // Use nullish coalescing to default to an empty object if doc.data() is null
+        });
 
-      return () => {
-        unsub();
+        return () => {
+          unsub();
+        };
       };
-    };
 
-    currentUser.uid && getChats();
-  }, [currentUser.uid])
+      getChats();
+    }
+  }, [currentUser?.uid]); // Use optional chaining to guard against null values
 
   const handleSelect = (u) => {
-    dispatch({ type: "CHANGE_USER", payload: u });
+    if (u.uid !== currentUser.uid) { // Check that u is not null before dispatching
+      dispatch({ type: "CHANGE_USER", payload: u });
+    }
   };
 
+  {/* return statement different */}
   return (
     <div className="chats">
       {Object.entries(chats)?.sort((a,b) => b[1].date - a[1].date).map(([chatId, chatData]) => {
         // Check if userInfo exists before trying to access its properties
         const userInfo = chatData.userInfo;
-        if (!userInfo) {
-          // Skip rendering this chat entry if userInfo is undefined
+        if (!userInfo || userInfo.uid === currentUser.uid) {
+          // Skip rendering this chat entry if userInfo is undefined or if the chat belongs to the current user
           return null;
         }
+  
+        // You can also implement additional logic to prevent selecting the chat if it belongs to the current user
+        const handleSelectUser = () => {
+          if (userInfo.uid !== currentUser.uid) {
+            handleSelect(userInfo);
+          }
+        };
 
         return (
-          <div className="userChat" key={chatId} onClick={() => handleSelect(userInfo)}>
+          <div className="userChat" key={chatId} onClick={handleSelectUser}>
             {/* Now we are sure userInfo is defined */}
             <img src={userInfo.photoURL || chatterboxImage} alt="User Logo" />
 
@@ -58,4 +70,4 @@ const DirectMessageChats = () => {
   );
 };
 
-export default DirectMessageChats
+export default DirectMessageChats;
