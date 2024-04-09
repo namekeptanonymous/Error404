@@ -19,21 +19,22 @@ import {
     const chatReducer = (state, action) => {
       switch (action.type) {
         case "CHANGE_USER":
-          // Make sure we have both currentUser and the payload before creating a chatId
-      if (currentUser?.uid && action.payload?.uid) {
-        return {
-          ...state,
-          user: action.payload,
-          chatId: currentUser.uid > action.payload.uid
-            ? currentUser.uid + action.payload.uid
-            : action.payload.uid + currentUser.uid,
-        };
-      } else {
-        return state; // Return the current state if we don't have valid uids
-      }
-  
-        default:
-          return state;
+          if (currentUser?.uid && action.payload?.uid && currentUser.uid !== action.payload.uid) {
+            const chatId = currentUser.uid > action.payload.uid
+              ? currentUser.uid + action.payload.uid
+              : action.payload.uid + currentUser.uid;
+            return {
+              ...state,
+              user: action.payload,
+              chatId: chatId,
+            };
+          }
+          return {
+            ...state,
+            user: null,
+            chatId: null,
+          };
+        // ... other actions
       }
     };
   
