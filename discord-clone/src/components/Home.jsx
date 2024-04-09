@@ -30,10 +30,61 @@ function Home() {
   const [admins] = useCollection(collection(db, "admins"));
   const [adminEmailExists, setAdminEmailExists] = useState(false);
 
-  const handleAddChannel = () => {
+  const handleAddChannel = async () => {
     const channelName = prompt("Enter a new channel name");
-    if (channelName) setDoc(doc(db, "channels", channelName), { channelName });
+    if (channelName) {
+      const channelRef = doc(db, "channels", channelName);
+      
+      // Check if the channel already exists
+      const channelSnapshot = await getDoc(channelRef);
+      if (channelSnapshot.exists()) {
+        alert("Channel already exists!");
+        return;
+      }
+  
+      await setDoc(channelRef, { channelName });
+  
+      // Add the current user to the channelUsers subcollection of the new channel
+      const channelUserRef = doc(db, "channels", channelName, "channelUsers", user.uid);
+      await setDoc(channelUserRef, {
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        photoURL: user.photoURL
+      });
+  
+      const adminUserRef = doc(db, "channels", channelName, "admins", user.uid);
+      await setDoc(adminUserRef, {
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        photoURL: user.photoURL
+      });
+  
+      navigate(`/channels/${channelName}`);
+    }
   };
+
+  const [filteredChannels, setFilteredChannels] = useState([]);
+
+  useEffect(() => {
+    const fetchChannels = async () => {
+      const channelDocs = await getDocs(collection(db, "channels"));
+      const channelsData = await Promise.all(channelDocs.docs.map(async (doc) => {
+        const channelUsersSnapshot = await getDocs(collection(db, "channels", doc.id, "channelUsers"));
+        const channelUserIds = channelUsersSnapshot.docs.map(doc => doc.id);
+        if (channelUserIds.includes(user?.uid)) {
+          return doc;
+        }
+        return null;
+      }));
+
+      // Filter out null values and update the filteredChannels state variable
+      setFilteredChannels(channelsData.filter(channel => channel !== null));
+    };
+
+    fetchChannels();
+  }, [user]);
 
   const handleClick = () => navigate('/direct-message');
 
@@ -96,12 +147,11 @@ function Home() {
       <UserGroupIcon className="h-5 icon" />
     </div>
     <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={handleLogout}>
-      <CogIcon className="h-5 icon"/>
+    <CogIcon className = "h-5 icon" onClick={() => navigate('/settings')}/>
     </div>
   </div>
 </div>
-
-      </div>
+</div>
       <div className="bg-discord_chatBg flex-grow">
         <Chat />
       </div>
