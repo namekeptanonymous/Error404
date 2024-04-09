@@ -3,9 +3,9 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import ServerIcon from './ServerIcon';
-import { ChevronDownIcon, PlusIcon, CogIcon, ShieldExclamationIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, PlusIcon, CogIcon } from "@heroicons/react/24/solid";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, doc, setDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, setDoc, getDocs, getDoc } from 'firebase/firestore';
 import Channel from './Channel.jsx'
 import Chat from './Chat.jsx'
 
@@ -29,40 +29,69 @@ function Home() {
 
 
   const[users]=useCollection(collection(db, "users"));
-  const[channels]=useCollection(collection(db, "channels"));
 
-  const handleAddChannel = () => {
+  const handleAddChannel = async () => {
     const channelName = prompt("Enter a new channel name");
     if (channelName) {
       const channelRef = doc(db, "channels", channelName);
-      setDoc(channelRef, { channelName });
+      
+      // Check if the channel already exists
+      const channelSnapshot = await getDoc(channelRef);
+      if (channelSnapshot.exists()) {
+        alert("Channel already exists!");
+        return;
+      }
+  
+      await setDoc(channelRef, { channelName });
+  
+      // Add the current user to the channelUsers subcollection of the new channel
+      const channelUserRef = doc(db, "channels", channelName, "channelUsers", user.uid);
+      await setDoc(channelUserRef, {
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        photoURL: user.photoURL
+      });
+  
+      const adminUserRef = doc(db, "channels", channelName, "admins", user.uid);
+      await setDoc(adminUserRef, {
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        photoURL: user.photoURL
+      });
+  
+      navigate(`/channels/${channelName}`);
     }
   };
+  
+  
+
+  const [filteredChannels, setFilteredChannels] = useState([]);
+
+  useEffect(() => {
+    const fetchChannels = async () => {
+      const channelDocs = await getDocs(collection(db, "channels"));
+      const channelsData = await Promise.all(channelDocs.docs.map(async (doc) => {
+        const channelUsersSnapshot = await getDocs(collection(db, "channels", doc.id, "channelUsers"));
+        const channelUserIds = channelUsersSnapshot.docs.map(doc => doc.id);
+        if (channelUserIds.includes(user?.uid)) {
+          return doc;
+        }
+        return null;
+      }));
+
+      // Filter out null values and update the filteredChannels state variable
+      setFilteredChannels(channelsData.filter(channel => channel !== null));
+    };
+
+    fetchChannels();
+  }, [user]);
+    
 
   function handleClick() {
     navigate('/direct-message');
   }
-
-  const [admins] = useCollection(collection(db, "admins"));
-  const [adminEmailExists, setAdminEmailExists] = useState(false); // State to hold whether the admin email exists
-
-  // Function to check if a certain email exists in the admins collection
-  const checkAdminEmail = async (emailToFind) => {
-    const q = query(
-      collection(db, "admins"),
-      where("email", "==", emailToFind)
-    );
-
-    const querySnapshot = await getDocs(q);
-
-    setAdminEmailExists(!querySnapshot.empty);
-  };
-
-  useEffect(() => {
-      if (user) {
-        checkAdminEmail(user?.email);
-      }
-  }, []);
 
   return (
     <>
@@ -94,13 +123,12 @@ function Home() {
                 <PlusIcon className="h-6 ml-auto cursor-pointer hover:text-white" onClick={handleAddChannel}/>
               </div>
               <div className ="flex flex-col space-y-2 px-2 mb-4">
-                {channels?.docs.map((doc)=>(
+                {filteredChannels?.map((doc)=>(
                   <Channel
                     key={doc.id}
                     id={doc.id}
                     channelName={doc.data().channelName} />
                 ))}
-                
               </div>
             </div>
             
@@ -114,11 +142,6 @@ function Home() {
               </div>
             
             <div className = "text-gray-400 flex items-center"> 
-              {adminEmailExists &&
-                <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => navigate('/admin-page')}>
-                  <ShieldExclamationIcon className="icon"/>
-                </div>
-              }
               <div className = "hover:bg-discord_iconHoverBg p-2 rounded-md">
                 <CogIcon className = "h-5 icon"/>
               </div>

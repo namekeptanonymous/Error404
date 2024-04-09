@@ -13,13 +13,13 @@ function Message({ id, message, timestamp, name, email, photoURL }) {
   const channelId = useSelector(selectChannelId);
   const [user] = useAuthState(auth);
 
-  const [admins] = useCollection(collection(db, "admins"));
+  const [admins] = useCollection(collection(db, "channels", channelId, "admins"));
   const [adminEmailExists, setAdminEmailExists] = useState(false); // State to hold whether the admin email exists
 
   // Function to check if a certain email exists in the admins collection
   const checkAdminEmail = async (emailToFind) => {
     const q = query(
-      collection(db, "admins"),
+      collection(db, "channels",  channelId || 'default', "admins"),
       where("email", "==", emailToFind)
     );
 
