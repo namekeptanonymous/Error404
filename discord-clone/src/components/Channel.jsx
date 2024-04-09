@@ -5,7 +5,7 @@ import { setChannelInfo } from "../features/channelSlice";
 
 function Channel({ id, channelName }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const navigate = useNavigate();
 
   const setChannel = () => {
     dispatch(
@@ -14,7 +14,7 @@ function Channel({ id, channelName }) {
         channelName: channelName,
       })
     );
-    navigate(`/channels/${id}`); // Use navigate to change the route
+    navigate(`/channels/${id}`);
   };
 
   return (

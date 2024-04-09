@@ -3,13 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Home from './components/Home';
-import AdminPage from './components/AdminPage';
 import DirectMessageHome from './components/DirectMessageHome';
 import "./styles.scss";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App h-screen">
       <Router>
         <Routes>
 
@@ -38,13 +37,6 @@ function App() {
         <Route exact path="/direct-message" element= {
             <>
             <DirectMessageHome />
-            </>
-          }>
-        </Route>
-
-        <Route exact path="/admin-page" element= {
-            <>
-            <AdminPage />
             </>
           }>
         </Route>

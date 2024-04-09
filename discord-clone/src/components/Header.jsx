@@ -20,6 +20,7 @@ function Header() {
                 name: displayName,
                 photoURL
             }, { merge: true }); // Using merge to avoid overwriting existing data
+            await setDoc(doc(db, "userChats", uid), {}, { merge: true });
             console.log("User data stored in Firestore");
         } catch (error) {
             console.error("Error storing user data: ", error);
@@ -37,15 +38,6 @@ function Header() {
             })
             .catch((error) => alert(error.message));
     };
-
-    /*
-    const signIn = (e) => {
-        e.preventDefault();
-        signInWithPopup(auth, provider)
-            .then(() => navigate("/channels"))
-            .catch((error)=>alert(error.message));
-    };
-    */
 
     return (
         <header className="flex items-center justify-between py-4 px-6 bg-discord_blue">
