@@ -7,6 +7,9 @@ import DirectMessageInput from './DirectMessageInput';
 const DirectMessageChat = () => {
   const {data} = useContext(ChatContext);
 
+  
+
+  
   if (!data.user) {
     // If no user is selected, you can return null or a placeholder div
     return null;
@@ -23,6 +26,7 @@ const DirectMessageChat = () => {
       <DirectMessageInput />
     </div>
   );
+  
 }
 
 export default DirectMessageChat;
