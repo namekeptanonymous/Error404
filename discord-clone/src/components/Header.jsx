@@ -20,6 +20,7 @@ function Header() {
                 name: displayName,
                 photoURL
             }, { merge: true }); // Using merge to avoid overwriting existing data
+            await setDoc(doc(db, "userChats", uid), {}, { merge: true });
             console.log("User data stored in Firestore");
         } catch (error) {
             console.error("Error storing user data: ", error);
