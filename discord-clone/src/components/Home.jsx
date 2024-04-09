@@ -147,7 +147,7 @@ function Home() {
       <UserGroupIcon className="h-5 icon" />
     </div>
     <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={handleLogout}>
-    <CogIcon className = "h-5 icon"/>
+    <CogIcon className = "h-5 icon" onClick={() => navigate('/settings')}/>
     </div>
   </div>
 </div>
