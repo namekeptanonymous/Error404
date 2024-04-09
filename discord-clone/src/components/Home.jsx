@@ -87,6 +87,7 @@ function Home() {
   }, [user]);
 
   const handleClick = () => navigate('/direct-message');
+  const handleSettingsClick = () => navigate('/settings');
 
   const checkAdminEmail = async (emailToFind) => {
     const q = query(collection(db, "admins"), where("email", "==", emailToFind));
@@ -135,19 +136,14 @@ function Home() {
     </h4>
   </div>
   <div className="text-gray-400 flex items-center">
-    {adminEmailExists &&
-      <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => navigate('/admin-page')}>
-        <ShieldExclamationIcon className="icon"/>
-      </div>
-    }
     <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => {
       console.log("Opening friends modal"); // This will log to the console when the icon is clicked
       setShowFriendsModal(true);
     }}>
       <UserGroupIcon className="h-5 icon" />
     </div>
-    <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={handleLogout}>
-    <CogIcon className = "h-5 icon" onClick={() => navigate('/settings')}/>
+    <div className="hover:bg-discord_iconHoverBg p-2 rounded-md">
+    <CogIcon className = "h-5 icon" onClick={handleSettingsClick}/>
     </div>
   </div>
 </div>
