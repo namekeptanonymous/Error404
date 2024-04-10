@@ -122,7 +122,7 @@ function Home() {
             <PlusIcon className="h-6 ml-auto cursor-pointer hover:text-white" onClick={handleAddChannel}/>
           </div>
           <div className="flex flex-col space-y-2 px-2 mb-4">
-            {channels?.docs.map((doc) => (
+            {filteredChannels?.map((doc) => (
               <Channel key={doc.id} id={doc.id} channelName={doc.data().channelName} />
             ))}
           </div>
