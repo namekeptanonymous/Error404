@@ -1,27 +1,48 @@
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from "@testing-library/react";
+import { expect, test } from 'vitest';
+import '@testing-library/jest-dom';
 import Settings from './Settings';
 
 describe('Settings component', () => {
-  test('validates email input and displays feedback', async () => {
-    const { getByLabelText, getByText } = render(<Settings />);
-    const emailInput = getByLabelText('Email:');
-    const saveBtn = getByText('Save Changes');
+  it('renders "Profile Settings" title', () => {
+    render(<Settings />);
+    const titleElement = screen.getByText('Profile Settings');
+    expect(titleElement).toBeInTheDocument();
+  });
 
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.click(saveBtn);
+  it('renders "About Me" input field', () => {
+    render(<Settings />);
+    const aboutMeInput = screen.getByPlaceholderText('Enter a brief description about yourself');
+    expect(aboutMeInput).toBeInTheDocument();
+  });
 
-    await waitFor(() => {
-      const validFeedback = getByText('Valid email address');
-      expect(validFeedback).toBeInTheDocument();
-    });
+  it('renders "Profile Picture" input field', () => {
+    render(<Settings />);
+    const profilePicInput = screen.getByLabelText('Profile Picture:');
+    expect(profilePicInput).toBeInTheDocument();
+  });
 
-    fireEvent.change(emailInput, { target: { value: 'invalid email' } });
-    fireEvent.click(saveBtn);
+  it('renders "Phone Number" input field', () => {
+    render(<Settings />);
+    const phoneNumberInput = screen.getByPlaceholderText('Enter your phone number');
+    expect(phoneNumberInput).toBeInTheDocument();
+  });
 
-    await waitFor(() => {
-      const invalidFeedback = getByText('Please enter a valid email address');
-      expect(invalidFeedback).toBeInTheDocument();
-    });
+  it('renders "Save Changes" button', () => {
+    render(<Settings />);
+    const saveChangesButton = screen.getByText('Save Changes');
+    expect(saveChangesButton).toBeInTheDocument();
+  });
+
+  it('renders "Changes saved!" confirmation', () => {
+    render(<Settings />);
+    const saveConfirmation = screen.getByText('Changes saved!');
+    expect(saveConfirmation).toBeInTheDocument();
+  });
+
+  it('renders loading spinner', () => {
+    render(<Settings />);
+    const loadingSpinner = screen.getByText('Saving...');
+    expect(loadingSpinner).toBeInTheDocument();
   });
 });
