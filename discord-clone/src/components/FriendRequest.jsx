@@ -1,5 +1,19 @@
 import React from 'react';
-
+import { auth, db } from '../firebase';
+import { v4 as uuid } from "uuid";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDoc,
+  deleteDoc,
+} from "firebase/firestore";
 // Static list for UI mockup
 const mockPendingRequests = [
   { id: '3', name: 'Emily Johnson', avatar: 'path/to/avatar3.png' },
@@ -22,19 +36,33 @@ const buttonStyle = {
   };
 
 const FriendRequests = () => {
+  const [currentUser] = useAuthState(auth);
+
   const acceptFriendRequest = (requestId) => {
     console.log(`Accepting friend request with ID: ${requestId}`);
     // Accept friend request implementation
+    updateDoc(doc(db,"friends",requestId),{
+      status: "friend",
+    });
   };
 
   const declineFriendRequest = (requestId) => {
     console.log(`Declining friend request with ID: ${requestId}`);
     // Decline friend request implementation
+    deleteDoc(doc(db,"friends",'requestId'));
   };
 
   const sendFriendRequest = (friendId) => {
-    console.log(`Sending friend request to ID: ${friendId}`);
     // Send friend request implementation
+      console.log(`Sending friend request to ID: ${friendId}`);
+
+      setDoc(doc(db,"friends",currentUser?.uid),{
+        requestid:uuid(),
+        user1: currentUser?.uid,
+        user2: friendId,
+        status: "pending",
+      });
+
   };
 
   return (

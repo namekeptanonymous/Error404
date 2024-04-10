@@ -1,5 +1,17 @@
 import React from 'react';
-
+import { auth, db } from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDoc,
+} from "firebase/firestore";
 // Static list of friends for UI mockup
 const mockFriends = [
   { id: '1', name: 'John Doe', avatar: 'path/to/avatar1.png', isOnline: true },
@@ -14,14 +26,17 @@ const mockFriendRequests = [
 ];
 
 const FriendsList = () => {
+  const [currentUser] = useAuthState(auth);
+
+  
   const removeFriend = (friendId) => {
     console.log(`Remove friend with ID: ${friendId}`);
     // Remove friend implementation
   };
 
   const addFriend = () => {
-    console.log("Add friend logic here");
-    // Add friend implementation
+    const userid = prompt("Enter a username");
+    
   };
 
   return (
