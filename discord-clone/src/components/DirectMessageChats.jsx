@@ -13,7 +13,6 @@ const DirectMessageChats = () => {
   const [currentUser] = useAuthState(auth);
   const {dispatch} = useContext(ChatContext);
 
-
   useEffect(() => {
     if (currentUser?.uid) { // Make sure currentUser is not null before accessing uid
       const getChats = () => {
