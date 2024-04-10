@@ -1,7 +1,5 @@
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../context/ChatContext";
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { db } from "../firebase";
 import {
   arrayUnion,
   doc,
@@ -9,32 +7,74 @@ import {
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
+import { db, auth } from "../firebase";
+import { storage } from '../firebase'; // Correct usage for named export
 import { v4 as uuid } from "uuid";
-import { auth } from '../firebase';
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+import Img from "../images/img.png";
+import Attach from "../images/attach.png";
 
 const DirectMessageInput = () => {
   const [text, setText] = useState("");
+  const [img, setImg] = useState(null);
 
   const [currentUser] = useAuthState(auth);
   const { data } = useContext(ChatContext);
 
   const handleSend = async () => {
-    if (text.trim() === "" || !data.chatId) {
-      // If there's no text or if chatId is null, do not proceed.
-      console.error("No text or the chatId is null.");
-      return;
+    if (img) {
+      //const storageRef = ref(storage, `images/${uuid()}`); // Added `images/` for organization
+      //const uploadTask = uploadBytesResumable(storageRef, img);
+      const storageRef = ref(storage, uuid());
+
+      const uploadTask = uploadBytesResumable(storageRef, img);
+
+      uploadTask.on(
+        
+        (error) => {
+          // Handle Error
+          console.error("Error uploading file: ", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await updateDoc(doc(db, "chats", data.chatId), {
+              messages: arrayUnion({
+                id: uuid(),
+                text,
+                senderId: currentUser.uid,
+                date: Timestamp.now(),
+                img: downloadURL,
+              }),
+            });
+            
+          });
+        }
+      );
+    } else {
+      // This block now only concerns sending text messages
+      if (text.trim() === "" || !data.chatId) {
+        console.error("No text or the chatId is null.");
+        return;
+      }
+      
+      await updateDoc(doc(db, "chats", data.chatId), {
+        messages: arrayUnion({
+          id: uuid(),
+          text, 
+          senderId: currentUser.uid,
+          date: Timestamp.now(),
+        }),
+      });
+
     }
 
     
-    await updateDoc(doc(db, "chats", data.chatId), {
-    messages: arrayUnion({
-      id: uuid(),
-      text,
-      senderId: currentUser.uid,
-      date: Timestamp.now(),
-      }),
-    });
-      
+
+    // Update userChats for both sender and receiver
+    // This block seems redundant if placed inside the else block above and outside. It should be executed in both cases.
     await updateDoc(doc(db, "userChats", currentUser.uid), {
       [data.chatId + ".lastMessage"]: {
         text,
@@ -50,18 +90,31 @@ const DirectMessageInput = () => {
     });
 
     setText("");
-
-  }
+      setImg(null);
   
+  };
+
   return (
-    <div className = 'input'>
-      <input type="text" placeholder = "Type something..." onChange={(e) => setText(e.target.value)} value={text}/>
-      <div className = "send">
-          
-          <button onClick={handleSend}> Send </button>
+    <div className="input">
+      <input type="text" placeholder="Type something..." onChange={(e) => setText(e.target.value)} value={text}/>
+      <div className="send">
+      
+        <img src={Attach} alt="" />
+        <input
+          type="file"
+          style={{ display: "none" }}
+          id="file"
+          onChange={(e) => setImg(e.target.files[0])}
+        />
+        
+        <label htmlFor="file">
+        
+          <img src={Img} alt="" /> </label>
+        
+        <button onClick={handleSend}>Send</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default DirectMessageInput;

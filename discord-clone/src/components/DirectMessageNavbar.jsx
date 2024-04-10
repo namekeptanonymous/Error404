@@ -4,6 +4,7 @@ import { useEffect } from 'react'; //
 import chatterboxImage from '../images/chatterbox.png';
 import { auth, db } from '../firebase';
 import { useNavigate } from 'react-router-dom'; //
+import { BrowserRouter } from 'react-router-dom';
 
 
 function DirectMessageNavbar () {
