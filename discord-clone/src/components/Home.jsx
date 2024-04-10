@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ServerIcon from './ServerIcon';
 import { ChevronDownIcon, PlusIcon, CogIcon, ShieldExclamationIcon, UserGroupIcon } from "@heroicons/react/24/solid";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, doc, setDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, setDoc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import Channel from './Channel.jsx';
 import Chat from './Chat.jsx';
 import Modal from './Modal.jsx';
@@ -122,7 +122,7 @@ function Home() {
             <PlusIcon className="h-6 ml-auto cursor-pointer hover:text-white" onClick={handleAddChannel}/>
           </div>
           <div className="flex flex-col space-y-2 px-2 mb-4">
-            {channels?.docs.map((doc) => (
+            {filteredChannels?.map((doc) => (
               <Channel key={doc.id} id={doc.id} channelName={doc.data().channelName} />
             ))}
           </div>
