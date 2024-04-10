@@ -10,22 +10,16 @@ describe('Settings component', () => {
     expect(titleElement).toBeInTheDocument();
   });
 
-  it('renders "About Me" input field', () => {
+  it('renders "Username" input field', () => {
     render(<Settings />);
-    const aboutMeInput = screen.getByPlaceholderText('Enter a brief description about yourself');
-    expect(aboutMeInput).toBeInTheDocument();
+    const usernameInput = screen.getByPlaceholderText('Enter a new username');
+    expect(usernameInput).toBeInTheDocument();
   });
 
   it('renders "Profile Picture" input field', () => {
     render(<Settings />);
     const profilePicInput = screen.getByLabelText('Profile Picture:');
     expect(profilePicInput).toBeInTheDocument();
-  });
-
-  it('renders "Phone Number" input field', () => {
-    render(<Settings />);
-    const phoneNumberInput = screen.getByPlaceholderText('Enter your phone number');
-    expect(phoneNumberInput).toBeInTheDocument();
   });
 
   it('renders "Save Changes" button', () => {
