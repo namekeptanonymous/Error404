@@ -18,23 +18,7 @@ function Hero() {
               <ArrowDownTrayIcon className='w-6 mr-2'/>
               Download (currently unavailable)
             </button>
-            <button className='bg-gray-900 text-white w-80 font-medium flex items-center justify-center rounded-full p-4 text-lg hover:shadow-2xl hover:bg-gray-800 focus:outline-none transition duration-200 ease-in-out'>
-              Open ChatterBox in your browser
-            </button>
           </div>
-        </div>
-        <div className='flex-grow'>
-          {/* Optional section: Could add pictures here to make it look prettier, the ones in the guide are not available today. */}
-          <img
-            src=""
-            alt=""
-            className='absolute -left-36 mt-16 sm:-left-44 md:hidden'
-          />
-          <img
-            src=""
-            alt=""
-            className='hidden md:inline absolute'
-          />
         </div>
       </div>
     </div>

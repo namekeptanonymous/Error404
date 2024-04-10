@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import '@testing-library/jest-dom';
-import Hero from './Hero'; // Ensure this path is correct based on your project structure
+import Hero from './Hero';
 
 describe('Hero component', () => {
   beforeEach(() => {
@@ -20,11 +20,6 @@ describe('Hero component', () => {
   it('renders the download button with correct text', () => {
     const downloadButton = screen.getByRole('button', { name: /download \(currently unavailable\)/i });
     expect(downloadButton).toBeInTheDocument();
-  });
-
-  it('renders the "Open ChatterBox in your browser" button', () => {
-    const openChatterBoxButton = screen.getByRole('button', { name: /open chatterbox in your browser/i });
-    expect(openChatterBoxButton).toBeInTheDocument();
   });
 
 });

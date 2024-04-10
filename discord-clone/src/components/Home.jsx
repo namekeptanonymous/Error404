@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import ServerIcon from './ServerIcon';
-import { ChevronDownIcon, PlusIcon, CogIcon, ShieldExclamationIcon, UserGroupIcon } from "@heroicons/react/24/solid";
+import { PlusIcon, CogIcon, UserGroupIcon } from "@heroicons/react/24/solid";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, doc, setDoc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import Channel from './Channel.jsx';
@@ -26,9 +26,6 @@ function Home() {
   };
 
   const [users] = useCollection(collection(db, "users"));
-  const [channels] = useCollection(collection(db, "channels"));
-  const [admins] = useCollection(collection(db, "admins"));
-  const [adminEmailExists, setAdminEmailExists] = useState(false);
 
   const handleAddChannel = async () => {
     const channelName = prompt("Enter a new channel name");
@@ -62,41 +59,31 @@ function Home() {
       });
   
       navigate(`/channels/${channelName}`);
+      fetchChannels();
     }
   };
 
   const [filteredChannels, setFilteredChannels] = useState([]);
 
+  const fetchChannels = async () => {
+    const channelDocs = await getDocs(collection(db, "channels"));
+    const channelsData = await Promise.all(channelDocs.docs.map(async (doc) => {
+      const channelUsersSnapshot = await getDocs(collection(db, "channels", doc.id, "channelUsers"));
+      const channelUserIds = channelUsersSnapshot.docs.map(doc => doc.id);
+      if (channelUserIds.includes(user?.uid)) {
+        return doc;
+      }
+      return null;
+    }));
+    setFilteredChannels(channelsData.filter(channel => channel !== null));
+  };
+
   useEffect(() => {
-    const fetchChannels = async () => {
-      const channelDocs = await getDocs(collection(db, "channels"));
-      const channelsData = await Promise.all(channelDocs.docs.map(async (doc) => {
-        const channelUsersSnapshot = await getDocs(collection(db, "channels", doc.id, "channelUsers"));
-        const channelUserIds = channelUsersSnapshot.docs.map(doc => doc.id);
-        if (channelUserIds.includes(user?.uid)) {
-          return doc;
-        }
-        return null;
-      }));
-
-      // Filter out null values and update the filteredChannels state variable
-      setFilteredChannels(channelsData.filter(channel => channel !== null));
-    };
-
     fetchChannels();
   }, [user]);
 
   const handleClick = () => navigate('/direct-message');
   const handleSettingsClick = () => navigate('/settings');
-
-  const checkAdminEmail = async (emailToFind) => {
-    const q = query(collection(db, "admins"), where("email", "==", emailToFind));
-    setAdminEmailExists(!(await getDocs(q)).empty);
-  };
-
-  useEffect(() => {
-    if (user) checkAdminEmail(user.email);
-  }, [user]);
 
   return (
     <div className="flex h-screen">
@@ -113,12 +100,11 @@ function Home() {
       </div>
       <div className="bg-discord_channelsBg flex flex-col min-w-max">
         <h2 className="flex text-white font-bold text-sm items-center justify-between border-b border-gray-800 p-4 hover:bg-discord_serverNameHoverBg cursor-pointer">
-          Main Server<ChevronDownIcon className="h-5 ml-2"/>
+          Main Server
         </h2>
         <div className="text-discord_channel flex-grow overflow-y-scroll scrollbar-hide">
           <div className="flex items-center p-2 mb-2">
-            <ChevronDownIcon className="h-3 mr-2"/>
-            <h4 className="font-semibold">Channels</h4>
+            <h4 className="font-semibold ml-1">Channels</h4>
             <PlusIcon className="h-6 ml-auto cursor-pointer hover:text-white" onClick={handleAddChannel}/>
           </div>
           <div className="flex flex-col space-y-2 px-2 mb-4">
@@ -137,7 +123,6 @@ function Home() {
   </div>
   <div className="text-gray-400 flex items-center">
     <div className="hover:bg-discord_iconHoverBg p-2 rounded-md" onClick={() => {
-      console.log("Opening friends modal"); // This will log to the console when the icon is clicked
       setShowFriendsModal(true);
     }}>
       <UserGroupIcon className="h-5 icon" />

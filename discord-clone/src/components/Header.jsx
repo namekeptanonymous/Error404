@@ -1,14 +1,13 @@
-import { Bars3Icon } from '@heroicons/react/24/outline';
 import chatterboxImage from '../images/chatterbox.png';
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider, db } from '../firebase';
-import { doc, setDoc } from "firebase/firestore"; // new
+import { doc, setDoc } from "firebase/firestore";
 
 function Header() {
     const [user] = useAuthState(auth);
-    const navigate = useNavigate(); // useHistory() no longer exists in v6 of react-router-dom
+    const navigate = useNavigate();
 
     // Function to store/update user data in Firestore
     const storeUserData = async (user) => {
@@ -19,7 +18,7 @@ function Header() {
                 email,
                 name: displayName,
                 photoURL
-            }, { merge: true }); // Using merge to avoid overwriting existing data
+            }, { merge: true });
             await setDoc(doc(db, "userChats", uid), {}, { merge: true });
             console.log("User data stored in Firestore");
         } catch (error) {
@@ -44,7 +43,7 @@ function Header() {
             <a href="/">
                 <img src={chatterboxImage} className="w-12 h-12 object-contain" alt="ChatterBox Logo" />
             </a>
-            <div className="hidden lg:flex  space-x-6 text-white">
+            <div className="hidden lg:flex space-x-6 text-white">
                 <a className="link"> Download </a>
                 <a className="link"> Why ChatterBox? </a>
                 <a className="link"> Premium </a>
@@ -58,7 +57,6 @@ function Header() {
                 onClick={!user ? signIn : () => navigate("/channels")}>
                     {!user ? "Login" : "Open ChatterBox"}
                 </button>
-                <Bars3Icon className="h-9 text-white cursor-pointer lg:hidden"/>
             
 
             </div>
