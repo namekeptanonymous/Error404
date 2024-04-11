@@ -25,38 +25,32 @@ const FriendsList = () => {
   };
 
   return (
-    <div>
+    <div className="space-y-2 text-white">
       <div>
-        <h2>Online</h2>
+        <span className="text-discord_channel uppercase text-sm font-bold">Online</span>
         {mockFriends.filter(friend => friend.isOnline).map(friend => (
-          <div key={friend.id}>
-            <img src={friend.avatar} alt={`${friend.name}'s avatar`} />
-            <span>{friend.name}</span>
-            <button onClick={() => removeFriend(friend.id)}>Remove</button>
+          <div key={friend.id} className="flex items-center justify-between font-medium hover:bg-discord_channelHoverBg rounded-md p-1 group">
+            <span className="flex items-center">
+              <img src={friend.avatar} className="h-10 w-10 rounded-full cursor-pointer mr-3 hover:shadow-2xl" referrerPolicy="no-referrer"/>
+              {friend.name}
+            </span>
+            <button onClick={() => removeFriend(friend.id)} className="ml-auto p-1 rounded-sm cursor-pointer group-hover:bg-discord_deleteIcon group-hover:text-white opacity-0 group-hover:opacity-100">Remove</button>
           </div>
         ))}
       </div>
       <div>
-        <h2>Offline</h2>
+        <span className="text-discord_channel uppercase text-sm font-bold">Offline</span>
         {mockFriends.filter(friend => !friend.isOnline).map(friend => (
-          <div key={friend.id}>
-            <img src={friend.avatar} alt={`${friend.name}'s avatar`} />
-            <span>{friend.name}</span>
-            <button onClick={() => removeFriend(friend.id)}>Remove</button>
+          <div key={friend.id} className="flex items-center justify-between font-medium hover:bg-discord_channelHoverBg rounded-md p-1 group">
+            <span className="flex items-center">
+              <img src={friend.avatar} className="h-10 rounded-full cursor-pointer mr-3 hover:shadow-2xl" referrerPolicy="no-referrer"/>
+              {friend.name}
+            </span>
+            <button onClick={() => removeFriend(friend.id)} className="ml-auto p-1 rounded-sm cursor-pointer group-hover:bg-discord_deleteIcon group-hover:text-white opacity-0 group-hover:opacity-100">Remove</button>
           </div>
         ))}
       </div>
-      <div>
-        <h2>Pending</h2>
-        {mockFriendRequests.map(request => (
-          <div key={request.id}>
-            <img src={request.avatar} alt={`${request.name}'s avatar`} />
-            <span>{request.name}</span>
-            {/* Add buttons for accepting or declining the friend request */}
-          </div>
-        ))}
-      </div>
-      <button onClick={addFriend}>Add Friend</button>
+      <button onClick={addFriend} className="ml-auto p-1 rounded-sm cursor-pointer group-hover:bg-discord_deleteIcon group-hover:text-white opacity-0 group-hover:opacity-100">Add Friend</button>
     </div>
   );
 };
