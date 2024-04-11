@@ -10,10 +10,11 @@ import {
   setDoc,
   doc,
   updateDoc,
+  deleteDoc,
   serverTimestamp,
   getDoc,
-  deleteDoc,
 } from "firebase/firestore";
+
 // Static list for UI mockup
 const mockPendingRequests = [
   { id: '3', name: 'Emily Johnson', avatar: 'path/to/avatar3.png' },
@@ -65,30 +66,34 @@ const FriendRequests = () => {
       } else{ 
         console.log("Already send a friend request");
       }
-
-      
-
   };
 
   return (
-    <div>
+    <div className="space-y-2 text-white">
       <div>
-        <h2>Pending Friend Requests</h2>
+        <span className="text-discord_channel uppercase text-sm font-bold">Pending Friend Requests</span>
         {mockPendingRequests.map(request => (
-          <div key={request.id} className="request-item">
-            <img src={request.avatar} alt={`${request.name}'s avatar`} style={{ marginRight: '10px' }} />
-            <span>{request.name}</span>
-            <button style={buttonStyle} onClick={() => acceptFriendRequest(request.id)}>Accept</button>
-            <button style={buttonStyle} onClick={() => declineFriendRequest(request.id)}>Decline</button>
+          <div key={request.id} className="flex items-center justify-between font-medium hover:bg-discord_channelHoverBg rounded-md p-1 group">
+            <span className="flex items-center">
+              <img src={request.avatar} className="h-10 w-10 rounded-full cursor-pointer mr-3 hover:shadow-2xl" referrerPolicy="no-referrer"/>
+              {request.name}
+            </span>
+            <div className="ml-auto p-1 rounded-sm cursor-pointer group-hover:bg-discord_deleteIcon group-hover:text-white opacity-0 group-hover:opacity-100">
+              <button onClick={() => acceptFriendRequest(request.id)}>Accept</button>
+              <button onClick={() => declineFriendRequest(request.id)}>Decline</button>
+            </div>
           </div>
         ))}
       </div>
       <div>
-        <h2>Add Friend</h2>
+        <span className="text-discord_channel uppercase text-sm font-bold">Add Friend</span>
         {mockSuggestedFriends.map(friend => (
-          <div key={friend.id} className="suggested-friend-item">
-            <span>{friend.name}</span>
-            <button style={buttonStyle} onClick={() => sendFriendRequest(friend.id)}>Add Friend</button>
+          <div key={friend.id} className="flex items-center justify-between font-medium hover:bg-discord_channelHoverBg rounded-md p-1 group">
+            <span className="flex items-center">
+              <img src={friend.avatar} className="h-10 rounded-full cursor-pointer mr-3 hover:shadow-2xl" referrerPolicy="no-referrer"/>
+              {friend.name}
+            </span>
+            <button onClick={() => sendFriendRequest(friend.id)} className="ml-auto p-1 rounded-sm cursor-pointer group-hover:bg-discord_deleteIcon group-hover:text-white opacity-0 group-hover:opacity-100">Add Friend</button>
           </div>
         ))}
       </div>
