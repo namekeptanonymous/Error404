@@ -87,10 +87,8 @@ class Settings extends React.Component {
     // }
 
     // After all the updates are done, hide the loading spinner and show the save confirmation
-    setTimeout(() => {
-      loadingSpinner.style.display = 'none';
-      saveConfirmation.style.display = 'block';
-    }, 2000); // Adjust the delay as needed
+    loadingSpinner.style.display = 'none';
+    saveConfirmation.style.display = 'block';
 }
 
   undoChanges() {
