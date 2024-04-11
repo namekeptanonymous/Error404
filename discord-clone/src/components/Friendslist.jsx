@@ -40,7 +40,7 @@ const FriendsList = () => {
     const q = query(doc(db,"users",userid));
     if(!getDoc(q).empty){ //Checks if inputted username exists in DB
       const q2 = query(doc(db,"friends",currentUser?.uid+userid));
-      if(!getDoc(q2).empty){ //Checking if friend request is already sent.
+      if(getDoc(q2).empty){ //Checking if friend request is already sent.
           setDoc(doc(db,"friends",currentUser?.uid+userid),{
             user1: currentUser?.uid,
             user2: userid,
