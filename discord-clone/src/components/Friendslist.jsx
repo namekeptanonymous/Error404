@@ -38,11 +38,21 @@ const FriendsList = () => {
   const addFriend = () => {
     const userid = prompt("Enter a username");
     const q = query(collection(db,"users"),where("name","==",userid));
-    const snapshot =  getDocs(q);
-    console.log(snapshot.documentId());
-    
-    
-    
+    if(!getDocs(q).empty){ //Checks if inputted username exists in DB
+      const q2 = query(doc(db,"friends",currentUser?.uid+friendId));
+      if(!getDoc(q2).empty){ //Checking if friend request is already sent.
+          setDoc(doc(db,"friends",currentUser?.uid+friendId),{
+            user1: currentUser?.uid,
+            user2: friendId,
+            status: "pending",
+          });
+
+      }else{
+        console.log("Friend Request already sent")
+      };
+    }else{
+      console.log("User does not exist")
+    };
     
   };
 
