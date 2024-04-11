@@ -1,7 +1,8 @@
 import React from 'react';
 import { auth, db } from '../firebase';  
 import { doc, setDoc, getDocs, collection, query, where, updateDoc } from 'firebase/firestore';  
-import { updateProfile } from 'firebase/auth';  
+import { updateProfile } from 'firebase/auth';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 class Settings extends React.Component {
   constructor(props) {
@@ -48,6 +49,39 @@ class Settings extends React.Component {
     loadingSpinner.style.display = 'block'; // Show loading spinner
 
     const { username } = this.state;
+    const file = document.getElementById('profile-pic').files[0]; // Get the file from the input
+    var newPhotoURL;
+
+    if (file) {
+      const storage = getStorage(); // Get a reference to the storage service
+      const storageRef = ref(storage, 'profilePics/' + file.name); // Create a storage reference
+  
+      // Upload the file to Firebase Storage
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+          console.error('Upload failed:', error);
+        },
+        () => {
+          // Handle successful uploads on complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log('File available at', downloadURL);
+  
+            // Update the user's photoURL with the new URL
+            updateProfile(auth.currentUser, { photoURL: downloadURL });
+            newPhotoURL = downloadURL;
+          });
+        }
+      );
+    }
 
     await updateProfile(auth.currentUser, { displayName: username });
 
@@ -68,23 +102,15 @@ class Settings extends React.Component {
       const messagesUsersSnapshot = await getDocs(messagesUsersQuery);
 
       for (const channelUserDoc of channelUsersSnapshot.docs) {
-        await updateDoc(channelUserDoc.ref, { name: username });
+        await updateDoc(channelUserDoc.ref, { name: username, photoURL: newPhotoURL });
       }
       for (const adminUserDoc of adminUsersSnapshot.docs) {
-        await updateDoc(adminUserDoc.ref, { name: username });
+        await updateDoc(adminUserDoc.ref, { name: username, photoURL: newPhotoURL });
       }
       for (const messageUserDoc of messagesUsersSnapshot.docs) {
-        await updateDoc(messageUserDoc.ref, { name: username });
+        await updateDoc(messageUserDoc.ref, { name: username, photoURL: newPhotoURL });
       }
     }
-
-    // for (const userChatsDoc of userChatsDocs.docs) {
-    //   const channelUsersQuery = query(collection(db, 'userChats'), where('uid', '==', auth.currentUser.uid));
-
-    //   for (const messageUserDoc of messagesUsersSnapshot.docs) {
-    //     await updateDoc(messageUserDoc.ref, { name: username });
-    //   }
-    // }
 
     // After all the updates are done, hide the loading spinner and show the save confirmation
     loadingSpinner.style.display = 'none';
