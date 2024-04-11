@@ -40,6 +40,13 @@ class Settings extends React.Component {
   }
 
   async saveChanges() {
+    const saveConfirmation = document.getElementById('save-confirmation');
+    const loadingSpinner = document.querySelector('.loading-spinner');
+
+    // Simulate saving changes (setTimeout used as a placeholder for actual saving process)
+    saveConfirmation.style.display = 'none'; // Hide save confirmation if visible
+    loadingSpinner.style.display = 'block'; // Show loading spinner
+
     const { username } = this.state;
 
     await updateProfile(auth.currentUser, { displayName: username });
@@ -79,17 +86,12 @@ class Settings extends React.Component {
     //   }
     // }
 
-    const saveConfirmation = document.getElementById('save-confirmation');
-    const loadingSpinner = document.querySelector('.loading-spinner');
-
-    // Simulate saving changes (setTimeout used as a placeholder for actual saving process)
-    saveConfirmation.style.display = 'none'; // Hide save confirmation if visible
-    loadingSpinner.style.display = 'block'; // Show loading spinner
-
-    // Hide loading spinner and show save confirmation after 2 seconds (simulating save delay)
-    loadingSpinner.style.display = 'none';
-    saveConfirmation.style.display = 'block';
-  }
+    // After all the updates are done, hide the loading spinner and show the save confirmation
+    setTimeout(() => {
+      loadingSpinner.style.display = 'none';
+      saveConfirmation.style.display = 'block';
+    }, 2000); // Adjust the delay as needed
+}
 
   undoChanges() {
     const saveConfirmation = document.getElementById('save-confirmation');
@@ -124,8 +126,8 @@ class Settings extends React.Component {
             <div className="profile-pics-container" />
           </div>
           <button className="save-btn" onClick={this.saveChanges}>Save Changes</button>
-          <div id="save-confirmation" className="save-confirmation">Changes saved!</div>
-          <div className="loading-spinner"><i className="fa fa-spinner fa-spin" />Saving...</div>
+          <div id="save-confirmation" className="save-confirmation text-center mt-2">Changes saved!</div>
+          <div className="loading-spinner text-center mt-2"><i className="fa fa-spinner fa-spin" />Saving...</div>
         </div>
       </div>
     );
