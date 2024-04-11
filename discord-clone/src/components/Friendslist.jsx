@@ -12,6 +12,7 @@ import {
   serverTimestamp,
   getDoc,
 } from "firebase/firestore";
+import { QrCode } from '@mui/icons-material';
 // Static list of friends for UI mockup
 const mockFriends = [
   { id: '1', name: 'John Doe', avatar: 'path/to/avatar1.png', isOnline: true },
@@ -31,11 +32,17 @@ const FriendsList = () => {
   
   const removeFriend = (friendId) => {
     console.log(`Remove friend with ID: ${friendId}`);
-    // Remove friend implementation
+    deleteDoc(doc(db,"friends",currentUser?.uid+requestId));
   };
 
   const addFriend = () => {
     const userid = prompt("Enter a username");
+    const q = query(collection(db,"users"),where("name","==",userid));
+    const snapshot =  getDocs(q);
+    console.log(snapshot.documentId());
+    
+    
+    
     
   };
 

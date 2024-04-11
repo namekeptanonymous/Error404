@@ -38,30 +38,35 @@ const buttonStyle = {
 const FriendRequests = () => {
   const [currentUser] = useAuthState(auth);
 
-  const acceptFriendRequest = (requestId) => {
-    console.log(`Accepting friend request with ID: ${requestId}`);
+  const acceptFriendRequest = (friendId) => {
+    console.log(`Accepting friend request with ID: ${friendId}`);
     // Accept friend request implementation
-    updateDoc(doc(db,"friends",requestId),{
+    updateDoc(doc(db,"friends",currentUser?.uid+friendId),{
       status: "friend",
     });
   };
 
-  const declineFriendRequest = (requestId) => {
-    console.log(`Declining friend request with ID: ${requestId}`);
+  const declineFriendRequest = (friendId) => {
+    console.log(`Declining friend request with ID: ${friendId}`);
     // Decline friend request implementation
-    deleteDoc(doc(db,"friends",'requestId'));
+    deleteDoc(doc(db,"friends",currentUser?.uid+friendId));
   };
 
   const sendFriendRequest = (friendId) => {
     // Send friend request implementation
       console.log(`Sending friend request to ID: ${friendId}`);
+      const q = query(doc(db,"friends",currentUser?.uid+friendId));
+      if(getDoc(q).empty){ 
+        setDoc(doc(db,"friends",currentUser?.uid+friendId),{
+          user1: currentUser?.uid,
+          user2: friendId,
+          status: "pending",
+        });
+      } else{ 
+        console.log("Already send a friend request");
+      }
 
-      setDoc(doc(db,"friends",currentUser?.uid),{
-        requestid:uuid(),
-        user1: currentUser?.uid,
-        user2: friendId,
-        status: "pending",
-      });
+      
 
   };
 
