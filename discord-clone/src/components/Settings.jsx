@@ -25,6 +25,10 @@ class Settings extends React.Component {
   previewProfilePic(event) {
     const file = event.target.files[0];
     if (file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload an image file.');
+        return;
+      }
       this.setState({ profilePicGiven: true });
       const reader = new FileReader();
       reader.onload = function(event) {
@@ -41,33 +45,32 @@ class Settings extends React.Component {
   }
 
   async saveChanges() {
+    const { username, profilePicGiven } = this.state;
+    if (username.trim() === '' || !profilePicGiven) {
+      alert('Please fill in all fields before saving.');
+      return;
+    }
+
     const saveConfirmation = document.getElementById('save-confirmation');
     const loadingSpinner = document.querySelector('.loading-spinner');
 
-    // Simulate saving changes (setTimeout used as a placeholder for actual saving process)
-    saveConfirmation.style.display = 'none'; // Hide save confirmation if visible
-    loadingSpinner.style.display = 'block'; // Show loading spinner
-
-    const { username } = this.state;
-    const file = document.getElementById('profile-pic').files[0]; // Get the file from the input
+    saveConfirmation.style.display = 'none';
+    loadingSpinner.style.display = 'block';
+    const file = document.getElementById('profile-pic').files[0];
     var newPhotoURL;
 
     if (file) {
-      const storage = getStorage(); // Get a reference to the storage service
-      const storageRef = ref(storage, 'profilePics/' + file.name); // Create a storage reference
+      const storage = getStorage();
+      const storageRef = ref(storage, 'profilePics/' + file.name); 
   
-      // Upload the file to Firebase Storage
       const uploadTask = uploadBytesResumable(storageRef, file);
   
-      // Listen for state changes, errors, and completion of the upload.
       uploadTask.on('state_changed',
         (snapshot) => {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log('Upload is ' + progress + '% done');
         },
         (error) => {
-          // Handle unsuccessful uploads
           console.error('Upload failed:', error);
         },
         () => {
@@ -75,7 +78,6 @@ class Settings extends React.Component {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log('File available at', downloadURL);
   
-            // Update the user's photoURL with the new URL
             updateProfile(auth.currentUser, { photoURL: downloadURL });
             newPhotoURL = downloadURL;
           });
@@ -131,10 +133,8 @@ class Settings extends React.Component {
     profilePicPreviews.forEach((preview) => preview.remove());
   }
 
-
   render() {
     return (
-      
       <div className="space-y-2 p-4 text-white">
         <style dangerouslySetInnerHTML={{__html: "\n        body {\n            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;\n            background-color: #36393f;\n            color: #dcddde;\n            margin: 0;\n            padding: 0;\n            transition: background-color 0.3s ease, color 0.3s ease;\n        }\n\n        .container {\n            max-width: 400px;\n            margin: 50px auto;\n            background-color: #202225;\n            padding: 30px;\n            border-radius: 8px;\n            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n            transition: background-color 0.3s ease;\n        }\n\n        h1 {\n            text-align: center;\n            margin-bottom: 30px;\n            color: #7289da;\n        }\n\n        .setting {\n            margin-bottom: 20px;\n        }\n\n        label {\n            display: block;\n            margin-bottom: 8px;\n            color: #b9bbbe;\n            font-weight: bold;\n        }\n\n        input[type=\"text\"],\n        input[type=\"file\"] {\n            width: calc(100% - 20px);\n            padding: 10px;\n            border: 1px solid #72767d;\n            border-radius: 5px;\n            background-color: #2e3136;\n            color: #dcddde;\n            transition: border-color 0.3s ease;\n        }\n\n        input[type=\"text\"]:focus,\n        input[type=\"file\"]:focus {\n            border-color: #7289da;\n        }\n\n        .save-btn {\n            display: block;\n            width: 100%;\n            padding: 10px;\n            background-color: #7289da;\n            color: #fff;\n            border: none;\n            border-radius: 5px;\n            cursor: pointer;\n            transition: background-color 0.3s ease;\n        }\n\n        .save-btn:hover {\n            background-color: #5f73bc;\n        }\n\n        .error-message {\n            color: #ff6b6b;\n            margin-top: 5px;\n        }\n\n        /* Dynamic character count color */\n        #char-count {\n            color: #b9bbbe;\n        }\n\n        /* Real-time validation styles */\n        .valid-feedback,\n        .invalid-feedback {\n            display: none;\n            font-size: 12px;\n            margin-top: 5px;\n        }\n\n        .valid-feedback i.fa-check,\n        .invalid-feedback i.fa-times {\n            margin-right: 5px;\n        }\n\n        .valid-feedback {\n            color: #43b581; /* Green color for valid input */\n        }\n\n        .invalid-feedback {\n            color: #f04747; /* Red color for invalid input */\n        }\n\n        /* Save confirmation styles */\n        .save-confirmation {\n            color: #43b581; /* Green color for confirmation */\n            display: none;\n            margin-top: 10px;\n        }\n\n        .loading-spinner {\n            display: none;\n            margin-top: 10px;\n        }\n\n        /* Additional styles for profile picture preview */\n        .profile-pics-container {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 10px;\n            margin-top: 10px;\n        }\n\n        .profile-pic-preview {\n            width: 100px;\n            height: 100px;\n            object-fit: cover;\n            border-radius: 50%;\n        }\n    " }} />
         <div className="container">
