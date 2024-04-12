@@ -6,6 +6,7 @@ import FriendsList from './Friendslist';
 describe('FriendsList Component', () => {
   beforeEach(() => {
     vi.spyOn(console, 'log').mockImplementation(() => {});  // Mock console.log to suppress output during tests
+    vi.spyOn(window, 'prompt').mockImplementation(() => "testUserID");
   });
 
   it('renders online and offline friends correctly', () => {
@@ -32,6 +33,7 @@ describe('FriendsList Component', () => {
     render(<FriendsList />);
     const addButton = screen.getByText('Add Friend');
     fireEvent.click(addButton);
-    expect(console.log).toHaveBeenCalledWith("Add friend logic here");
+    fireEvent.click(addButton);
+    expect(console.log).toHaveBeenCalledWith("Friend Request already sent");
   });
 });

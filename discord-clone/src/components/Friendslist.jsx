@@ -1,4 +1,18 @@
 import React from 'react';
+import { auth, db } from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
+  getDoc,
+} from "firebase/firestore";
 
 // Static list of friends for UI mockup
 const mockFriends = [
@@ -14,16 +28,33 @@ const mockFriendRequests = [
 ];
 
 const FriendsList = () => {
+  const [currentUser] = useAuthState(auth);
+
   const removeFriend = (friendId) => {
     console.log(`Remove friend with ID: ${friendId}`);
-    // Remove friend implementation
+    deleteDoc(doc(db,"friends",currentUser?.uid+friendId));
   };
 
   const addFriend = () => {
-    console.log("Add friend logic here");
-    // Add friend implementation
-  };
+    const userid = prompt("Enter A UserID");
+    const q = query(doc(db,"users",userid));
+    if(!getDoc(q).empty){ //Checks if inputted username exists in DB
+      const q2 = query(doc(db,"friends",currentUser?.uid+userid));
+      if(getDoc(q2).empty){ //Checking if friend request is already sent.
+          setDoc(doc(db,"friends",currentUser?.uid+userid),{
+            user1: currentUser?.uid,
+            user2: userid,
+            status: "pending",
+          });
 
+      }else{
+        console.log("Friend Request already sent")
+      };
+    }else{
+      console.log("User does not exist")
+    };
+  }
+  
   return (
     <div className="space-y-2 text-white">
       <div>
@@ -50,7 +81,7 @@ const FriendsList = () => {
           </div>
         ))}
       </div>
-      <button onClick={addFriend} className="ml-auto p-1 rounded-sm cursor-pointer group-hover:bg-discord_deleteIcon group-hover:text-white opacity-0 group-hover:opacity-100">Add Friend</button>
+      <button onClick={addFriend} className="ml-auto p-1 rounded-sm cursor-pointer bg-discord_green text-white opacity-100">Add Friend</button>
     </div>
   );
 };
