@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import FriendsList from './FriendsList';  // Ensure this points to the correct file
+import FriendsList from './Friendslist';
 
 describe('FriendsList Component', () => {
   beforeEach(() => {
