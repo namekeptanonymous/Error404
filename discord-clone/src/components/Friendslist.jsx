@@ -81,7 +81,7 @@ const FriendsList = () => {
           </div>
         ))}
       </div>
-      <button onClick={addFriend} className="ml-auto p-1 rounded-sm cursor-pointer group-hover:bg-discord_deleteIcon group-hover:text-white opacity-1 group-hover:opacity-100">Add Friend</button>
+      <button onClick={addFriend} className="ml-auto p-1 rounded-sm cursor-pointer bg-discord_green text-white opacity-100">Add Friend</button>
     </div>
   );
 };

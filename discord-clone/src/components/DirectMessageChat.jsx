@@ -20,7 +20,7 @@ const DirectMessageChat = () => {
   return (
     <div className="chat">
       <div className="chatInfo">
-        <span>{data.user.name}</span>
+        <span>{data.user?.name}</span>
       </div>
       <DirectMessageMessages />
       <DirectMessageInput />

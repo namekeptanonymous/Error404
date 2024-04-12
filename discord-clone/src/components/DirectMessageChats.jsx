@@ -13,7 +13,6 @@ const DirectMessageChats = () => {
   const [currentUser] = useAuthState(auth);
   const {dispatch} = useContext(ChatContext);
 
-
   useEffect(() => {
     if (currentUser?.uid) { // Make sure currentUser is not null before accessing uid
       const getChats = () => {
@@ -26,7 +25,7 @@ const DirectMessageChats = () => {
         };
       };
 
-      getChats();
+      currentUser.uid && getChats(); 
     }
   }, [currentUser?.uid]); // Use optional chaining to guard against null values
 
@@ -39,34 +38,27 @@ const DirectMessageChats = () => {
   {/* return statement different */}
   return (
     <div className="chats">
-      {Object.entries(chats)?.sort((a,b) => b[1].date - a[1].date).map(([chatId, chatData]) => {
-        // Check if userInfo exists before trying to access its properties
-        const userInfo = chatData.userInfo;
-        if (!userInfo || userInfo.uid === currentUser.uid) {
-          // Skip rendering this chat entry if userInfo is undefined or if the chat belongs to the current user
-          return null;
-        }
-  
-        // You can also implement additional logic to prevent selecting the chat if it belongs to the current user
-        const handleSelectUser = () => {
-          if (userInfo.uid !== currentUser.uid) {
-            handleSelect(userInfo);
-          }
-        };
+    {Object.entries(chats)?.sort((a, b) => b[1].date - a[1].date).map((chat) => {
+      const userInfo = chat[1].userInfo; // Use chat[1] instead of chatData
+      if (!userInfo || userInfo.uid === currentUser.uid) {
+        return null;
+      }
 
-        return (
-          <div className="userChat" key={chatId} onClick={handleSelectUser}>
-            {/* Now we are sure userInfo is defined */}
-            <img src={userInfo.photoURL || chatterboxImage} alt="User Logo" />
-
-            <div className="userChatInfo">
-              <span>{userInfo.name}</span>
-              <p>{chatData.lastMessage?.text}</p>
-            </div>
+      return (
+        <div
+          className="userChat"
+          key={chat[0]}
+          onClick={() => handleSelect(userInfo)} // Use userInfo directly
+        >
+          <img src={userInfo.photoURL} alt="" />
+          <div className="userChatInfo">
+            <span>{userInfo.name}</span>
+            <p>{chat[1].lastMessage?.text}</p>
           </div>
-        );
-      })}
-    </div>
+        </div>
+      );
+    })}
+  </div>
   );
 };
 
