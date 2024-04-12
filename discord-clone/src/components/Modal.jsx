@@ -63,7 +63,7 @@ const Modal = ({ children, isOpen, close }) => {
     };
 
     return (
-        <div id="modalBackdrop" style={modalStyle} onClick={handleBackdropClick}>
+        <div id="modalBackdrop" style={modalStyle} onClick={handleBackdropClick} data-testid="modalBackdrop">
             <div style={overlayStyle}></div>
             <div style={modalContentStyle} onClick={(e) => e.stopPropagation()}>
                 {children}
