@@ -3,9 +3,7 @@ import { expect, describe, it, beforeEach, vi } from 'vitest';
 import '@testing-library/jest-dom';
 import DirectMessageMessages from './DirectMessageMessages';
 import { ChatContext } from "../context/ChatContext";
-import DirectMessageMessage from "./DirectMessageMessage";
 
-// Mocking the modules
 vi.mock("../firebase", () => ({
   db: {},
 }));
@@ -19,11 +17,10 @@ vi.mock("firebase/firestore", () => ({
         messages: [
           { id: 'm1', text: 'Hello there!' },
           { id: 'm2', text: 'General Kenobi!' },
-          // ...other messages
         ],
       }),
     });
-    return () => {}; // Mock the unsubscribe function
+    return () => {};
   }),
 }));
 
@@ -46,7 +43,6 @@ describe('DirectMessageMessages component', () => {
       </ChatContext.Provider>
     );
 
-    // We should find the mock messages in the document
     const messageElements = screen.getAllByTestId('message');
     expect(messageElements.length).toBeGreaterThan(0);
     expect(messageElements[0]).toHaveTextContent('Hello there!');

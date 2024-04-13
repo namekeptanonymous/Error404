@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db } from '../firebase';
+import { auth } from '../firebase';
 import { ChatContext } from "../context/ChatContext";
 
 
@@ -14,7 +14,6 @@ const DirectMessageMessage = ({message}) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
-  //console.log(message);
   return (
     <div ref={ref} className = {`message ${message.senderId === currentUser.uid && "owner"}`}>
       <div className = 'messageInfo'>

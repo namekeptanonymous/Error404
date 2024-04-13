@@ -20,17 +20,14 @@ const DirectMessageMessages = () => {
 
   console.log(messages);
 
-  {/* return statement different */}
   return (
     <div className="messages">
       {messages.map((m) => {
-        // Ensure that m.text is a string
         if (typeof m.text === "string") {
           return <DirectMessageMessage message={m} key={m.id} />;
         } else {
-          // Handle the case where m.text is not a string
           console.error("Message text is not a string:", m);
-          return null; // or some fallback UI
+          return null;
         }
       })}
     </div>

@@ -4,7 +4,7 @@ import { useSelector }from "react-redux";
 import { selectChannelId, selectChannelName } from "../features/channelSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import { collection, doc, setDoc, getDoc, addDoc, deleteDoc, serverTimestamp, query, orderBy, getDocs, where } from "firebase/firestore";
+import { collection, doc, setDoc, addDoc, deleteDoc, serverTimestamp, query, orderBy, getDocs, where } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Message from './Message.jsx'
 

@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db, auth } from "../firebase";
-import { storage } from '../firebase'; // Correct usage for named export
+import { storage } from '../firebase';
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
@@ -26,8 +26,6 @@ const DirectMessageInput = () => {
 
   const handleSend = async () => {
     if (img) {
-      //const storageRef = ref(storage, `images/${uuid()}`); // Added `images/` for organization
-      //const uploadTask = uploadBytesResumable(storageRef, img);
       const storageRef = ref(storage, uuid());
 
       const uploadTask = uploadBytesResumable(storageRef, img);
@@ -35,7 +33,6 @@ const DirectMessageInput = () => {
       uploadTask.on(
         
         (error) => {
-          // Handle Error
           console.error("Error uploading file: ", error);
         },
         () => {
@@ -54,7 +51,6 @@ const DirectMessageInput = () => {
         }
       );
     } else {
-      // This block now only concerns sending text messages
       if (text.trim() === "" || !data.chatId) {
         console.error("No text or the chatId is null.");
         return;
@@ -71,10 +67,6 @@ const DirectMessageInput = () => {
 
     }
 
-    
-
-    // Update userChats for both sender and receiver
-    // This block seems redundant if placed inside the else block above and outside. It should be executed in both cases.
     await updateDoc(doc(db, "userChats", currentUser.uid), {
       [data.chatId + ".lastMessage"]: {
         text,

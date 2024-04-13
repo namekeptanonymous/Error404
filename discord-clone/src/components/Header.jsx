@@ -9,7 +9,6 @@ function Header() {
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
 
-    // Function to store/update user data in Firestore
     const storeUserData = async (user) => {
         const { uid, email, displayName, photoURL } = user;
         try {
@@ -30,9 +29,8 @@ function Header() {
         e.preventDefault();
         signInWithPopup(auth, provider)
             .then((result) => {
-                // After successful sign in, store user data in Firestore
                 storeUserData(result.user).then(() => {
-                    navigate("/channels"); // Navigate after storing user data
+                    navigate("/channels");
                 });
             })
             .catch((error) => alert(error.message));
@@ -57,10 +55,7 @@ function Header() {
                 onClick={!user ? signIn : () => navigate("/channels")}>
                     {!user ? "Login" : "Open ChatterBox"}
                 </button>
-            
-
             </div>
-
         </header>
     );
 }

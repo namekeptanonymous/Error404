@@ -3,16 +3,14 @@ import { expect, describe, it, beforeEach, vi } from 'vitest';
 import DirectMessageChat from './DirectMessageChat';
 import { ChatContext } from "../context/ChatContext";
 
-// Mocking the ChatContext to provide test values
 const mockContext = {
   data: {
-    user: null, // or provide a mock user object for logged-in state
+    user: null,
   }
 };
 
 describe('DirectMessageChat component', () => {
   beforeEach(() => {
-    // Reset the mock before each test
     mockContext.data.user = null;
   });
 
@@ -23,7 +21,7 @@ describe('DirectMessageChat component', () => {
       </ChatContext.Provider>
     );
     
-    const chatElement = screen.queryByRole('article'); // assuming 'chat' role is an 'article'
+    const chatElement = screen.queryByRole('article');
     expect(chatElement).toBeNull();
   });
 

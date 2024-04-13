@@ -2,29 +2,20 @@ import React from 'react';
 import { auth, db } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
-  collection,
   query,
-  where,
-  getDocs,
   setDoc,
   doc,
-  updateDoc,
   deleteDoc,
-  serverTimestamp,
   getDoc,
 } from "firebase/firestore";
 
-// Static list of friends for UI mockup
 const mockFriends = [
   { id: '1', name: 'John Doe', avatar: 'path/to/avatar1.png', isOnline: true },
-  { id: '2', name: 'Jane Smith', avatar: 'path/to/avatar2.png', isOnline: false },
-  // Add more mock friends data if needed
+  { id: '2', name: 'Jane Smith', avatar: 'path/to/avatar2.png', isOnline: false }
 ];
 
-// Static list of pending friend requests for UI mockup
 const mockFriendRequests = [
-  { id: '3', name: 'Emily Johnson', avatar: 'path/to/avatar3.png' },
-  // Add more mock friend requests data if needed
+  { id: '3', name: 'Emily Johnson', avatar: 'path/to/avatar3.png' }
 ];
 
 const FriendsList = () => {

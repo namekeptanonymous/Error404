@@ -17,7 +17,6 @@ class Settings extends React.Component {
     this.handleUsernameChange = this.handleUsernameChange.bind(this);  
   }
 
-  // Add a method to handle username changes
   handleUsernameChange(event) {
     this.setState({ username: event.target.value });
   }
@@ -74,7 +73,6 @@ class Settings extends React.Component {
           console.error('Upload failed:', error);
         },
         () => {
-          // Handle successful uploads on complete
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log('File available at', downloadURL);
   
@@ -87,14 +85,10 @@ class Settings extends React.Component {
 
     await updateProfile(auth.currentUser, { displayName: username });
 
-    // Update the user's name in Firestore
     await setDoc(doc(db, 'users', auth.currentUser.uid), { name: username }, { merge: true });
 
-    // Fetch all channels
     const channelDocs = await getDocs(collection(db, 'channels'));
-    const userChatsDocs = await getDocs(collection(db, 'userChats'));
 
-    // For each channel, fetch all channelUsers and update the user's name if the uid matches
     for (const channelDoc of channelDocs.docs) {
       const channelUsersQuery = query(collection(db, 'channels', channelDoc.id, 'channelUsers'), where('uid', '==', auth.currentUser.uid));
       const adminUsersQuery = query(collection(db, 'channels', channelDoc.id, 'admins'), where('uid', '==', auth.currentUser.uid));
@@ -114,21 +108,18 @@ class Settings extends React.Component {
       }
     }
 
-    // After all the updates are done, hide the loading spinner and show the save confirmation
     loadingSpinner.style.display = 'none';
     saveConfirmation.style.display = 'block';
 }
 
   undoChanges() {
     const saveConfirmation = document.getElementById('save-confirmation');
-    saveConfirmation.style.display = 'none'; // Hide save confirmation
+    saveConfirmation.style.display = 'none';
 
-    // Reset input fields
     document.getElementById('profile-name').value = '';
-    document.querySelector('.valid-feedback').style.display = 'none'; // Hide valid feedback
-    document.querySelector('.invalid-feedback').style.display = 'none'; // Hide invalid feedback
+    document.querySelector('.valid-feedback').style.display = 'none'; 
+    document.querySelector('.invalid-feedback').style.display = 'none'; 
 
-    // Remove profile picture previews
     const profilePicPreviews = document.querySelectorAll('.profile-pic-preview');
     profilePicPreviews.forEach((preview) => preview.remove());
   }

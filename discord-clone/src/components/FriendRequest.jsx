@@ -1,29 +1,21 @@
 import React from 'react';
 import { auth, db } from '../firebase';
-import { v4 as uuid } from "uuid";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
-  collection,
   query,
-  where,
-  getDocs,
   setDoc,
   doc,
   updateDoc,
   deleteDoc,
-  serverTimestamp,
   getDoc,
 } from "firebase/firestore";
 
-// Static list for UI mockup
 const mockPendingRequests = [
-  { id: '3', name: 'Emily Johnson', avatar: 'path/to/avatar3.png' },
-  // Add more mock requests data if needed
+  { id: '3', name: 'Emily Johnson', avatar: 'path/to/avatar3.png' }
 ];
 
 const mockSuggestedFriends = [
-  { id: '4', name: 'Michael Brown', avatar: 'path/to/avatar4.png' },
-  // Add more mock suggested friends data if needed
+  { id: '4', name: 'Michael Brown', avatar: 'path/to/avatar4.png' }
 ];
 
 const buttonStyle = {
@@ -41,7 +33,7 @@ const FriendRequests = () => {
 
   const acceptFriendRequest = (friendId) => {
     console.log(`Accepting friend request with ID: ${friendId}`);
-    // Accept friend request implementation
+    
     updateDoc(doc(db,"friends",currentUser?.uid+friendId),{
       status: "friend",
     });
@@ -49,12 +41,11 @@ const FriendRequests = () => {
 
   const declineFriendRequest = (friendId) => {
     console.log(`Declining friend request with ID: ${friendId}`);
-    // Decline friend request implementation
+    
     deleteDoc(doc(db,"friends",currentUser?.uid+friendId));
   };
 
   const sendFriendRequest = (friendId) => {
-    // Send friend request implementation
       console.log(`Sending friend request to ID: ${friendId}`);
       const q = query(doc(db,"friends",currentUser?.uid+friendId));
       if(getDoc(q).empty){ 

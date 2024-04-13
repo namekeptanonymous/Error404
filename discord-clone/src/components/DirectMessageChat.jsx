@@ -11,10 +11,8 @@ const DirectMessageChat = () => {
 
   
   if (!data.user) {
-    // If no user is selected, you can return null or a placeholder div
+    // If no user is selected, null is returned.
     return null;
-    // Or for a placeholder, you could return something like this:
-    // return <div className="chat">Please select a user to start chatting.</div>;
   }
 
   return (

@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { expect, test } from 'vitest';
+import { render, screen } from "@testing-library/react";
+import { expect } from 'vitest';
 import '@testing-library/jest-dom';
 import Settings from './Settings';
 
