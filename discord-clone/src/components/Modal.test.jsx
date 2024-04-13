@@ -1,18 +1,18 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Modal from './Modal'; // Ensure this points to the correct file
+import Modal from './Modal';
 
 describe('Modal Component', () => {
   let mockClose;
 
   beforeEach(() => {
     mockClose = vi.fn();
-    vi.resetAllMocks();  // Clear any mocks before each test
+    vi.resetAllMocks();
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();  // Restore mocks after each test
+    vi.restoreAllMocks();
   });
 
   it('renders correctly when open', () => {

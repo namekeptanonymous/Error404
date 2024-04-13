@@ -9,7 +9,7 @@ describe('ServerIcon component', () => {
     
     const imageElement = screen.getByAltText('');
     expect(imageElement).toBeInTheDocument();
-    expect(imageElement.tagName).toBe('IMG'); // Check if the element is an img tag
+    expect(imageElement.tagName).toBe('IMG');
 
     expect(imageElement).toHaveAttribute('src', 'sample_image.png');
 

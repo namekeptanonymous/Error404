@@ -21,7 +21,6 @@ test('Channel component', async () => {
 
   fireEvent.click(screen.getByText(channelName));
 
-  // Verify that setChannelInfo was dispatched correctly
   expect(mockDispatch).toHaveBeenCalledWith({
     type: 'channel/setChannelInfo',
     payload: {
@@ -30,6 +29,5 @@ test('Channel component', async () => {
     },
   });
 
-  // Verify that navigate was called with the correct route
   expect(mockNavigate).toHaveBeenCalledWith(`/channels/${channelId}`);
 });

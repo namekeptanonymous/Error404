@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { selectChannelId } from "../features/channelSlice";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from "../firebase";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, doc, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 import moment from 'moment';
 import emojiRegex from 'emoji-regex';
@@ -13,10 +12,8 @@ function Message({ id, message, timestamp, name, email, photoURL }) {
   const channelId = useSelector(selectChannelId);
   const [user] = useAuthState(auth);
 
-  const [admins] = useCollection(collection(db, "channels", channelId, "admins"));
-  const [adminEmailExists, setAdminEmailExists] = useState(false); // State to hold whether the admin email exists
+  const [adminEmailExists, setAdminEmailExists] = useState(false);
 
-  // Function to check if a certain email exists in the admins collection
   const checkAdminEmail = async (emailToFind) => {
     const q = query(
       collection(db, "channels",  channelId || 'default', "admins"),
@@ -34,9 +31,7 @@ function Message({ id, message, timestamp, name, email, photoURL }) {
     }
   }, []);
 
-  // Function to delete a message
   const deleteMessage = async () => {
-    // Only allow message deletion if channelId and message ID are present
     if (channelId && id) {
       const messageRef = doc(db, 'channels', channelId, 'messages', id);
       await deleteDoc(messageRef);

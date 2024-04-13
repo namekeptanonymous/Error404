@@ -4,7 +4,6 @@ import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import DirectMessageSidebar from './DirectMessageSidebar';
 
-// Mock child components to prevent their actual implementation from affecting these tests
 vi.mock('./DirectMessageNavbar', () => ({
   __esModule: true,
   default: () => <div>DirectMessageNavbar Mock</div>,

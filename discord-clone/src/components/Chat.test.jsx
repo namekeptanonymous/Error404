@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
-import { expect, test } from 'vitest';
+import { expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import channelReducer from '../features/channelSlice'; // replace with the path to your channelSlice
+import channelReducer from '../features/channelSlice';
 import Chat from './Chat';
 
 vi.mock('react-firebase-hooks/auth');

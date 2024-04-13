@@ -1,36 +1,27 @@
 import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect } from 'react'; //
-import chatterboxImage from '../images/chatterbox.png';
-import { auth, db } from '../firebase';
-import { useNavigate } from 'react-router-dom'; //
-import { BrowserRouter } from 'react-router-dom';
+import { useEffect } from 'react'; 
+import { auth } from '../firebase';
+import { useNavigate } from 'react-router-dom'; 
 
 
 function DirectMessageNavbar () {
   const navigate = useNavigate(); //
   const [user] = useAuthState(auth);
 
-  //
+
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
   }, [user, navigate]);
-  //
 
-  // Check if user is not authenticated and navigate to the root ("/") if needed
-  //if (!user) { //
-    //return <Navigate to="/" replace />; //
-  //} //
-
-  //
   const handleLogout = () => {
     auth.signOut()
-      .then(() => navigate("/")) // Redirect after sign out
-      .catch((error) => console.error("Logout error:", error)); // Handle errors
+      .then(() => navigate("/"))
+      .catch((error) => console.error("Logout error:", error));
   };
-  //
+
 
   function goBackChannels() {
     navigate('/channels');

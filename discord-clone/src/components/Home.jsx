@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ServerIcon from './ServerIcon';
 import { PlusIcon, CogIcon, UserGroupIcon } from "@heroicons/react/24/solid";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, doc, setDoc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, setDoc, getDoc, getDocs } from 'firebase/firestore';
 import Channel from './Channel.jsx';
 import Chat from './Chat.jsx';
 import Modal from './Modal.jsx';
@@ -32,7 +32,6 @@ function Home() {
     if (channelName) {
       const channelRef = doc(db, "channels", channelName);
       
-      // Check if the channel already exists
       const channelSnapshot = await getDoc(channelRef);
       if (channelSnapshot.exists()) {
         alert("Channel already exists!");
@@ -41,7 +40,6 @@ function Home() {
   
       await setDoc(channelRef, { channelName });
   
-      // Add the current user to the channelUsers subcollection of the new channel
       const channelUserRef = doc(db, "channels", channelName, "channelUsers", user.uid);
       await setDoc(channelUserRef, {
         uid: user.uid,
@@ -87,16 +85,18 @@ function Home() {
 
   return (
     <div className="flex h-screen">
-      <div className="flex flex-col space-y-3 bg-discord_serversBg p-3 min-w-max">
+      <div className="flex flex-col space-y-3 bg-discord_serversBg p-3 min-w-max overflow-y-scroll scrollbar-hide">
         <div className="server-default hover:bg-discord_purple" onClick={handleClick}>
-          <img src="../src/images/chatterbox.png" alt="" className="h-5"/>
+          <img src="../src/images/chatterbox.png" alt="" className="h-5 w-5"/>
         </div>
         <hr className="border-gray-700 border w-8 mx-auto" />
-        {users?.docs.map((doc) => (
-          <div key={doc.id} id={doc.id} onClick={handleClick}>
-            <ServerIcon image={doc.data().photoURL} />
-          </div>
-        ))}
+        <span className='overflow-y-scroll scrollbar-hide space-y-3'>
+          {users?.docs.map((doc) => (
+            <div key={doc.id} id={doc.id} onClick={handleClick}>
+              <ServerIcon image={doc.data().photoURL} />
+            </div>
+          ))}
+        </span>
       </div>
       <div className="bg-discord_channelsBg flex flex-col min-w-max">
         <h2 className="flex text-white font-bold text-sm items-center justify-between border-b border-gray-800 p-4 hover:bg-discord_serverNameHoverBg cursor-pointer">

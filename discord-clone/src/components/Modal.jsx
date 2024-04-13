@@ -37,23 +37,23 @@ const Modal = ({ children, isOpen, close }) => {
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.85)', // Dark overlay for contrast
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
     };
 
     const modalContentStyle = {
         position: 'relative',
-        backgroundColor: '#36393F', // Discord dark theme background color
+        backgroundColor: '#36393F',
         padding: '20px',
         borderRadius: '8px',
         boxShadow: '0 2px 10px 0 rgba(0, 0, 0, 0.2)',
         zIndex: 50,
         overflow: 'auto',
-        color: 'white', // Text color
+        color: 'white',
     };
 
     const closeButtonStyle = {
         marginTop: '20px',
-        backgroundColor: '#5865F2', // Discord blue for buttons
+        backgroundColor: '#5865F2',
         color: 'white',
         fontWeight: 'bold',
         padding: '8px 16px',

@@ -13,7 +13,6 @@ vi.mock('react-firebase-hooks/auth', () => ({
 describe('DirectMessageChats component', () => {
   const mockDispatch = vi.fn();
   
-  // Assuming a default mock chats state
   const mockChatsState = {
     chats: {
       chatId1: {
@@ -30,16 +29,11 @@ describe('DirectMessageChats component', () => {
   };
 
   beforeEach(() => {
-    // Clear all mocks before each test
     vi.clearAllMocks();
-    // Provide the default implementation for useAuthState that returns a user
     vi.mocked(useAuthState).mockReturnValue([{ uid: 'user1' }, false, undefined]);
   });
 
-  
-
   it('does not render chats when user is logged out', () => {
-    // Provide an implementation for useAuthState that returns null for the user
     vi.mocked(useAuthState).mockReturnValue([null, false, undefined]);
 
     render(
@@ -50,10 +44,8 @@ describe('DirectMessageChats component', () => {
       </BrowserRouter>
     );
 
-    // Assuming that chats render a list item for each chat
     const chatElements = screen.queryByRole('listitem');
     expect(chatElements).toBeNull();
   });
-
   
 });

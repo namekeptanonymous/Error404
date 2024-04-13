@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { expect, test } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
@@ -15,22 +15,16 @@ describe('Header component', () => {
 
   it('renders "Open ChatterBox" button when user is logged in', async () => {
     useAuthState.mockReturnValue([true]);
-    
     render(<Header />, { wrapper: BrowserRouter });
     
     const openChatterBoxButton = await screen.findByRole('button', { name: "Open ChatterBox" });
     expect(openChatterBoxButton).toBeInTheDocument();
   });
   it('renders "Login" button when user is logged out', async () => {
-    // Mocking that the user is logged out
     useAuthState.mockReturnValue([false]);
-
     render(<Header />, { wrapper: BrowserRouter });
 
-    // Wait for the "Login" button to be rendered
     const loginButton = await screen.findByRole('button', { name: "Login" });
-
-
     expect(loginButton).toBeInTheDocument();
   });
 });
@@ -65,9 +59,7 @@ test('renders navigation links', () => {
 
 
 test('hides certain elements on smaller screens', () => {
-  // Mocking smaller screen size
   global.innerWidth = 600;
-
   render(<Header />, { wrapper: BrowserRouter });
 
   const navigationLinks = screen.queryByRole('navigation');

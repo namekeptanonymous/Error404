@@ -5,18 +5,16 @@ import FriendsList from './Friendslist';
 
 describe('FriendsList Component', () => {
   beforeEach(() => {
-    vi.spyOn(console, 'log').mockImplementation(() => {});  // Mock console.log to suppress output during tests
+    vi.spyOn(console, 'log').mockImplementation(() => {});
     vi.spyOn(window, 'prompt').mockImplementation(() => "testUserID");
   });
 
   it('renders online and offline friends correctly', () => {
     render(<FriendsList />);
-    // Check for online friends
     const onlineFriends = screen.getAllByText(/John Doe/);
     expect(onlineFriends).toHaveLength(1);
     expect(screen.getByText('John Doe').closest('div')).toHaveTextContent('Remove');
 
-    // Check for offline friends
     const offlineFriends = screen.getAllByText(/Jane Smith/);
     expect(offlineFriends).toHaveLength(1);
     expect(screen.getByText('Jane Smith').closest('div')).toHaveTextContent('Remove');

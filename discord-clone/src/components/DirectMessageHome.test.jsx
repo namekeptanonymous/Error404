@@ -3,8 +3,6 @@ import { expect, describe, it } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import DirectMessageHome from './DirectMessageHome';
-import DirectMessageSidebar from '../components/DirectMessageSidebar';
-import DirectMessageChat from '../components/DirectMessageChat';
 
 vi.mock('../components/DirectMessageSidebar', () => ({
   __esModule: true,
