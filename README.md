@@ -31,18 +31,6 @@ We are currently working on creating a ChatterBox, a versatile communication pla
 - Each team member tests their code to ensure it meets project expectations.
 - Before committing changes to Git, we encourage showing the output to other team members for a preliminary review.
 
-#### Project Preferences
-- Our preferred projects (in order of preference) are Discord Clone, Event Ticketing, and E-learning.
-
-#### Lab Section Preferences
-- Our preferred lab sections are (in order of preference) L06, L03, and L09.
-
-#### Website Link
-The web-app can be accessed [here!](https://namekeptanonymous.github.io/Error404/)
-
-#### Additional Resources
-- [Google Document Link](https://docs.google.com/document/d/1AyMeJwwUZeAwoGpBZNSOshI5_QVa-fb0eNSxW8xPxHw/edit?usp=sharing)
-
 ---
 ### User Requirements:
 
